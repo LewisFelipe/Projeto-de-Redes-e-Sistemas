@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerInputManager : MonoBehaviour
 {
-    //Github test
     MovementManager mManager = new MovementManager();
     PlayerInput playerInput;
     Rigidbody rb;
