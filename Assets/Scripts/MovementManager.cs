@@ -10,6 +10,7 @@ public class MovementManager
         rb.velocity = new Vector3(speed * direction.x * sprint, 0, speed * direction.y * sprint);
     }
 
+    //Essa bosta n funfa
     public void GamepadRotate(Transform transform, Vector2 direction)
     {
         //var posToScreen = Camera.main.WorldToScreenPoint(transform.position);
