@@ -33,8 +33,8 @@ public class CameraFollow : MonoBehaviour
 
     private void Start()
     {
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+        camera = Camera.main.transform;
     }
 
     private void LateUpdate()

@@ -10,7 +10,13 @@ public class PlayerInputManager : MonoBehaviour
     Rigidbody rb;
     public bool isGrounded;
     public Vector2 move;
+    public Vector2 aim;
     public float speed;
+
+    void PlayerAim()
+    {
+        mManager.Rotate(transform, aim);
+    }
 
     void PlayerMove()
     {
@@ -55,6 +61,8 @@ public class PlayerInputManager : MonoBehaviour
 
         playerControls.Gameplay.Move.performed += context => move = context.ReadValue<Vector2>();
         playerControls.Gameplay.Move.canceled += context => move = Vector2.zero;
+
+        playerControls.Gameplay.Aim.performed += context => aim = context.ReadValue<Vector2>();
     }
     void FixedUpdate()
     {
@@ -62,5 +70,7 @@ public class PlayerInputManager : MonoBehaviour
         {
             PlayerMove();
         }
+
+        PlayerAim();
     }
 }

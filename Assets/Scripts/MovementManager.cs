@@ -10,8 +10,8 @@ public class MovementManager
         rb.velocity = new Vector3(speed * direction.x * sprint, 0, speed * direction.y * sprint);
     }
 
-    public void Rotate(Rigidbody rb, Vector2 direction, Vector3 position)
+    public void Rotate(Transform transform, Vector2 direction)
     {
-        //rb.rotate
+        transform.LookAt(new Vector3(direction.x, transform.position.y, direction.y) + new Vector3(transform.position.x, 0, transform.position.z));
     }
 }
