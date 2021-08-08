@@ -586,7 +586,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1476714448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -27.5, y: 1.215, z: 18.37}
+  m_LocalPosition: {x: 5.78, y: 1.215, z: 1.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -639,7 +639,6 @@ MonoBehaviour:
   isInFollowRange: 0
   chaseState: {fileID: 266469525}
   idleState: {fileID: 1852948783}
-  player: {fileID: 1476714452}
 --- !u!1 &1852948781
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,7 +683,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkState: {fileID: 1493518392}
-  player: {fileID: 1476714452}
 --- !u!1 &1045117772665053779
 GameObject:
   m_ObjectHideFlags: 0
@@ -2425,7 +2423,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1046672973734524795
 GameObject:
   m_ObjectHideFlags: 0

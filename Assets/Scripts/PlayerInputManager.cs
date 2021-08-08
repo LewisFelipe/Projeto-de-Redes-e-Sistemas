@@ -12,10 +12,17 @@ public class PlayerInputManager : MonoBehaviour
     public Vector2 move;
     public Vector2 aim;
     public float speed;
+    /*public bool isGamepad(InputControlScheme controlScheme)
+    {
+        if(controlScheme.namespace == "Gamepad")
+            return true;
+        return false;
+    }*/
 
     void PlayerAim()
     {
-        mManager.Rotate(transform, aim);
+        //if(isGamerpad)
+            mManager.GamepadRotate(transform, aim);
     }
 
     void PlayerMove()

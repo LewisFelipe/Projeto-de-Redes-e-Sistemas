@@ -146,7 +146,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""dfd5f2dc-0ba1-49e6-9990-07e3a89e6aa9"",
-                    ""path"": ""<Mouse>/position"",
+                    ""path"": ""<Joystick>/stick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",

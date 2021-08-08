@@ -8,16 +8,25 @@ public class WalkState : StateAI
     public bool isInFollowRange;
     public ChaseState chaseState;
     public IdleState idleState;
-    public Transform player;
-    private float range = 8.5f;
+    private Transform player;
+    private float range = 5.5f;
+    private bool playerIsClose = false;
+
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+    }
 
     public override StateAI RunCurrentStateAI()
     {
+        float dist = Vector3.Distance(player.position, transform.position);
+        CheckPlayerRange();
+
         if(isMyCompanion && isInFollowRange)
         {
             return chaseState;
         }
-        else if(Vector2.Distance(transform.position, player.position) >= range)
+        else if (playerIsClose)    
         {
             return idleState;
         }
@@ -26,4 +35,22 @@ public class WalkState : StateAI
             return this;
         }
     }
+
+
+    private void CheckPlayerRange()
+    {
+        Collider[] objects = Physics.OverlapSphere(transform.position, range);
+        foreach(Collider player in objects)
+        {
+            if(player.tag == "Player")
+            {
+                playerIsClose = true;
+            }
+            else
+            {
+                playerIsClose = false;
+            }
+        }
+    }
+    
 }
