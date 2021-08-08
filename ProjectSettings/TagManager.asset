@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Idle
   - Walk
+  - Ground
   layers:
   - Default
   - TransparentFX

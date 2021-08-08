@@ -6,14 +6,15 @@ using UnityEngine;
 public class PlayerInputManager : MonoBehaviour
 {
     MovementManager mManager = new MovementManager();
-    PlayerInput playerInput;
+    PlayerControls playerControls;
     Rigidbody rb;
+    public bool isGrounded;
     public Vector2 move;
-    public float maxSpeed, speed;
+    public float speed;
 
-    public void PlayerMove()
+    void PlayerMove()
     {
-        mManager.Move(rb, move, speed, maxSpeed, 1);
+        mManager.Move(rb, move, speed, 1);
     }
 
     public void Pause()
@@ -21,31 +22,45 @@ public class PlayerInputManager : MonoBehaviour
 
     }
 
-    private void PlayerInput_onActionTriggered(InputAction.CallbackContext context)
+    void OnCollisionStay(Collision other)
     {
-        throw new System.NotImplementedException();
+        if(other.gameObject.tag == "Ground")
+        {
+            isGrounded = true;
+        }
     }
 
-    private void Awake()
+    void OnCollisionExit(Collision other)
     {
-        playerInput = GetComponent<PlayerInput>();
-
-        playerInput.onActionTriggered += PlayerInput_onActionTriggered;
+        if(other.gameObject.tag == "Ground")
+        {
+            isGrounded = false;
+        }
     }
 
-    void Start()
+    void OnEnable()
     {
-        rb = gameObject.GetComponent<Rigidbody>();
-    }
-    
-    private void Update()
-    {
-        //Debug.Log(move);
+        playerControls.Gameplay.Enable();
     }
 
+    void OnDisable()
+    {
+        playerControls.Gameplay.Disable();
+    }
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        playerControls = new PlayerControls();
+
+        playerControls.Gameplay.Move.performed += context => move = context.ReadValue<Vector2>();
+        playerControls.Gameplay.Move.canceled += context => move = Vector2.zero;
+    }
     void FixedUpdate()
     {
-        PlayerMove();
-        //if(Input.)
+        if(isGrounded)
+        {
+            PlayerMove();
+        }
     }
 }
