@@ -21,8 +21,19 @@ public class PlayerInputManager : MonoBehaviour
 
     void PlayerAim()
     {
-        //if(isGamerpad)
-            mManager.GamepadRotate(transform, aim);
+        /*if(isGamepad(PlayerControls.ControlScheme))
+        {
+            Vector3 positionToLookAt = new Vector3(aim.x + transform.position.x, transform.position.y, aim.y + transform.position.y);
+            mManager.Rotate(transform, positionToLookAt);
+        }
+        else
+        {*/
+            //Cursor.visible = false;
+            float cameraDistance = Camera.main.transform.parent.position.y - transform.position.y;
+            Vector3 position = GameObject.FindGameObjectWithTag("MouseCamera").GetComponent<Camera>().ScreenToWorldPoint(new Vector3(aim.x, aim.y, cameraDistance));
+            Vector3 positionToLookAt = new Vector3(position.x, transform.position.y, position.z);
+            mManager.Rotate(transform, positionToLookAt);
+        /*}*/
     }
 
     void PlayerMove()

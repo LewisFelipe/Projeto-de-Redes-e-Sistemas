@@ -37,6 +37,11 @@ public class CameraFollow : MonoBehaviour
         camera = Camera.main.transform;
     }
 
+    private void Update()
+    {
+        GameObject.FindGameObjectWithTag("MouseCamera").transform.position = GameObject.FindGameObjectWithTag("Player").transform.position;
+    }
+
     private void LateUpdate()
     {
         switch(shouldSmooth)
