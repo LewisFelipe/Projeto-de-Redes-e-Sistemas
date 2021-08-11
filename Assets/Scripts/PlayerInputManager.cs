@@ -12,6 +12,9 @@ public class PlayerInputManager : MonoBehaviour
     public Vector2 move;
     public Vector2 aim;
     public float speed;
+    private Animator animator;
+
+
     /*public bool isGamepad(InputControlScheme controlScheme)
     {
         if(controlScheme.namespace == "Gamepad")
@@ -39,6 +42,14 @@ public class PlayerInputManager : MonoBehaviour
     void PlayerMove()
     {
         mManager.Move(rb, move, speed, 1);
+        if(move == Vector2.zero)
+        {
+            animator.SetBool("isWalking", false);
+        }
+        else
+        {
+           animator.SetBool("isWalking", true); 
+        }
     }
 
     public void Pause()
@@ -76,6 +87,7 @@ public class PlayerInputManager : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         playerControls = new PlayerControls();
+        animator = GetComponent<Animator>();
 
         playerControls.Gameplay.Move.performed += context => move = context.ReadValue<Vector2>();
         playerControls.Gameplay.Move.canceled += context => move = Vector2.zero;
