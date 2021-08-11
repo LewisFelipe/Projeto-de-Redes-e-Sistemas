@@ -831,7 +831,7 @@ AnimatorStateMachine:
     m_Position: {x: 580, y: 20, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8346818427604328719}
-    m_Position: {x: 369.1688, y: -27.699524, z: 0}
+    m_Position: {x: 30, y: 210, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -841,7 +841,7 @@ AnimatorStateMachine:
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 408, y: -96, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 1102414701294786830}
+  m_DefaultState: {fileID: -8346818427604328719}
 --- !u!206 &1564105364715880108
 BlendTree:
   m_ObjectHideFlags: 1
