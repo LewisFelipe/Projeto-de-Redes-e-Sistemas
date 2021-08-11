@@ -8,6 +8,7 @@ public class PlayerInputManager : MonoBehaviour
     MovementManager mManager = new MovementManager();
     PlayerControls playerControls;
     Rigidbody rb;
+    public bool usingMouse = true;
     public bool isGrounded;
     public Vector2 move;
     public Vector2 aim;
@@ -24,19 +25,21 @@ public class PlayerInputManager : MonoBehaviour
 
     void PlayerAim()
     {
-        /*if(isGamepad(PlayerControls.ControlScheme))
+        Vector3 positionToLookAt;
+        if(usingMouse)
         {
-            Vector3 positionToLookAt = new Vector3(aim.x + transform.position.x, transform.position.y, aim.y + transform.position.y);
-            mManager.Rotate(transform, positionToLookAt);
-        }
-        else
-        {*/
-            //Cursor.visible = false;
+            aim = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
             float cameraDistance = Camera.main.transform.parent.position.y - transform.position.y;
             Vector3 position = GameObject.FindGameObjectWithTag("MouseCamera").GetComponent<Camera>().ScreenToWorldPoint(new Vector3(aim.x, aim.y, cameraDistance));
-            Vector3 positionToLookAt = new Vector3(position.x, transform.position.y, position.z);
+            positionToLookAt = new Vector3(position.x, transform.position.y, position.z);
             mManager.Rotate(transform, positionToLookAt);
-        /*}*/
+            //Cursor.visible = false;
+        }
+        else
+        {
+            positionToLookAt = new Vector3(aim.x + transform.position.x, transform.position.y, aim.y + transform.position.y);
+            mManager.Rotate(transform, positionToLookAt);
+        }
     }
 
     void PlayerMove()
@@ -93,6 +96,7 @@ public class PlayerInputManager : MonoBehaviour
         playerControls.Gameplay.Move.canceled += context => move = Vector2.zero;
 
         playerControls.Gameplay.Aim.performed += context => aim = context.ReadValue<Vector2>();
+        playerControls.Gameplay.Aim.canceled += context => aim = Vector2.zero;
     }
     void FixedUpdate()
     {
