@@ -14,6 +14,8 @@ public class NpcDialogue : MonoBehaviour
     public GameObject openShopButton;
     private bool isFinishDialogue;
     public bool isSeller;
+    private bool shopping;
+    public GameObject shopTab;
 
     private void Start()
     {
@@ -28,7 +30,7 @@ public class NpcDialogue : MonoBehaviour
 
     private void OnTriggerStay(Collider player)
     {
-        if(player.gameObject.tag == "Player")
+        if(player.gameObject.tag == "Player" && shopping == false)
         dialoguePanel.SetActive(true);
     }
 
@@ -40,6 +42,7 @@ public class NpcDialogue : MonoBehaviour
             openShopButton.SetActive(false);
             textNumber = 0;
             isFinishDialogue = false;
+            CloseShop();
         }
     }
 
@@ -61,5 +64,18 @@ public class NpcDialogue : MonoBehaviour
             textNumber = 0;
             isFinishDialogue = true;
         }
+    }
+
+    public void OpenShop()
+    {
+        shopTab.SetActive(true);
+        dialoguePanel.SetActive(false);
+        shopping = true;
+    }
+
+    public void CloseShop()
+    {
+        shopTab.SetActive(false);
+        shopping = false;
     }
 }
