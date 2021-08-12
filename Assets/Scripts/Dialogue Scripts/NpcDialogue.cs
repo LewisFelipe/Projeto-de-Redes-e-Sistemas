@@ -13,6 +13,7 @@ public class NpcDialogue : MonoBehaviour
     public GameObject dialoguePanel;
     public GameObject openShopButton;
     private bool isFinishDialogue;
+    public bool isSeller;
 
     private void Start()
     {
@@ -47,6 +48,7 @@ public class NpcDialogue : MonoBehaviour
         dialogueText.text = dialogueString[textNumber];
         if(isFinishDialogue == true)
         {
+            if(isSeller == true)
             openShopButton.SetActive(true);
         }
     }
