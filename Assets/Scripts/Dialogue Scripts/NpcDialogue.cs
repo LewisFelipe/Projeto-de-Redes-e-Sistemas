@@ -16,6 +16,8 @@ public class NpcDialogue : MonoBehaviour
     public bool isSeller;
     private bool shopping;
     public GameObject shopTab;
+    public TMP_Text stonesUsedText;
+    private int stonesCount;
 
     private void Start()
     {
@@ -77,5 +79,15 @@ public class NpcDialogue : MonoBehaviour
     {
         shopTab.SetActive(false);
         shopping = false;
+    }
+
+    public void BuyItem()
+    {
+        if(LunarStone.lunarStones > 0)
+        {
+            LunarStone.lunarStones--;
+            stonesCount++;
+            stonesUsedText.text = stonesCount.ToString();            
+        }
     }
 }
