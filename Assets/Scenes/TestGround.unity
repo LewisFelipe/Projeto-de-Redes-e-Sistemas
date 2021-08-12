@@ -1291,6 +1291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c338f7f3e99f4604c982c48ebd5df9c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usingMouse: 1
   isGrounded: 0
   move: {x: 0, y: 0}
   aim: {x: 0, y: 0}
@@ -11411,7 +11412,7 @@ Animator:
   m_GameObject: {fileID: 1046105091301684539}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 7e30eee73c241d5448ce0ac372cf6602, type: 3}
-  m_Controller: {fileID: 9100000, guid: d7c55390ab0320c47b84f63184ecb1b9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 161c9495e8c31f549b083ae9d22f4d7e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
