@@ -2,27 +2,62 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class NpcDialogue : MonoBehaviour
 {
 
-    public string dialogueText;
-    public Image dialoguePanel;
+    public string[] dialogueString;
+    private int textNumber = 0;
+    public TMP_Text dialogueText;
+    public GameObject dialoguePanel;
+    public GameObject openShopButton;
+    private bool isFinishDialogue;
 
-    
-    void Start()
+    private void Start()
     {
-        
+        openShopButton.SetActive(false);
+        isFinishDialogue = false;
+    }
+    
+    private void Update()
+    {
+        UpdateDialogue();
     }
 
-    
-    void Update()
+    private void OnTriggerStay(Collider player)
     {
-        
+        if(player.gameObject.tag == "Player")
+        dialoguePanel.SetActive(true);
     }
 
-    private void OnTriggerEnter()
+    private void OnTriggerExit(Collider player)
     {
-        Debug.Log("Funcionando");
+        if(player.gameObject.tag == "Player")
+        {
+            dialoguePanel.SetActive(false);
+            openShopButton.SetActive(false);
+            textNumber = 0;
+            isFinishDialogue = false;
+        }
+    }
+
+    private void UpdateDialogue()
+    {
+        dialogueText.text = dialogueString[textNumber];
+        if(isFinishDialogue == true)
+        {
+            openShopButton.SetActive(true);
+        }
+    }
+
+    public void NextText()
+    {
+        textNumber++;
+        if(textNumber >= dialogueString.Length)
+        {
+            textNumber = 0;
+            isFinishDialogue = true;
+        }
     }
 }
