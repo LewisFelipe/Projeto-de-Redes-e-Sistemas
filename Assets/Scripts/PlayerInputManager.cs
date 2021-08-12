@@ -45,7 +45,9 @@ public class PlayerInputManager : MonoBehaviour
     void PlayerMove()
     {
 
+        Vector3 mousePos = Input.mousePosition;
         mManager.Move(rb, move, speed, 1);
+
         if(move == Vector2.zero)
         {
             animator.SetBool("isWalking", false);
@@ -59,21 +61,33 @@ public class PlayerInputManager : MonoBehaviour
 
         if(rb.velocity.x > 0f) //Direita
         {
-            animator.SetFloat("Strafe", 1f);
+            if(Input.mousePosition.x > Screen.width / 2.0f)
+            animator.SetFloat("Forward", 1f);
+            else if(Input.mousePosition.x < Screen.width / 2.0f)
+            animator.SetFloat("Forward", -1f);
         }
         else if(rb.velocity.x < 0f) //Esquerda
-        {
-            animator.SetFloat("Strafe", -1f);
+        {   
+            if(Input.mousePosition.x < Screen.width / 2.0f)
+            animator.SetFloat("Forward", 1f);
+            else if(Input.mousePosition.x > Screen.width / 2.0f)
+            animator.SetFloat("Forward", -1f);      
+
         }
         else if(rb.velocity.z > 0f) //Cima
         {
+            if(Input.mousePosition.y < Screen.height / 2.0f)
+            animator.SetFloat("Forward", -1f);
+            else
             animator.SetFloat("Forward", 1f);
         }
         else if(rb.velocity.z < 0f) // Baixo
         {
+            if(Input.mousePosition.y < Screen.height / 2.0f)
+            animator.SetFloat("Forward", 1f);
+            else
             animator.SetFloat("Forward", -1f);
         }
-
         
     }
 
