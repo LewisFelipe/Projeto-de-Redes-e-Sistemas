@@ -18,6 +18,9 @@ public class NpcDialogue : MonoBehaviour
     public GameObject shopTab;
     public TMP_Text stonesUsedText;
     private int stonesCount;
+    [SerializeField] private GameObject[] itensList;
+    private int randomIndex;
+    private bool canBuy;
 
     private void Start()
     {
@@ -87,7 +90,24 @@ public class NpcDialogue : MonoBehaviour
         {
             LunarStone.lunarStones--;
             stonesCount++;
-            stonesUsedText.text = stonesCount.ToString();            
+            stonesUsedText.text = stonesCount.ToString();
+            canBuy = true;       
         }
+    }
+
+    public void GetRandomWeapon()
+    {
+        if(canBuy == true)
+        {
+            GenerateRandomInt();
+            itensList[randomIndex].SetActive(true);
+            canBuy = false;        
+        }
+
+    }
+
+    private void GenerateRandomInt()
+    {
+        randomIndex = Random.Range(0, itensList.Length);
     }
 }
