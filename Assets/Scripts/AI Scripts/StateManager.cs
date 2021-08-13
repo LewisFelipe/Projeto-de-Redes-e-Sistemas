@@ -19,6 +19,7 @@ public class StateManager : MonoBehaviour
         walkState = GameObject.FindGameObjectWithTag("Walk").GetComponent<StateAI>();
         npcAIController = GetComponent<AIController>();
         agent = GetComponent<NavMeshAgent>();
+        currentState = idleState;
     }
 
     void Update()
@@ -49,6 +50,10 @@ public class StateManager : MonoBehaviour
         {
             //muda para o próximo estado
             SwitchState(nextState);
+        }
+        else
+        {
+            SwitchState(idleState);
         }
     }
 

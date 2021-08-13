@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class IdleState : StateAI
 {
+    public static IdleState Instance;
     public WalkState walkState;
     private Transform player;
     private float range = 5.5f;
-    private bool playerIsClose = false;
+    public bool playerIsClose = false;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -27,7 +33,7 @@ public class IdleState : StateAI
             return this;
         }
     }
-
+    
     private void CheckPlayerRange()
     {
         Collider[] objects = Physics.OverlapSphere(transform.position, range);

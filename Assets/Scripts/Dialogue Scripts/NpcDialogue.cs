@@ -18,7 +18,7 @@ public class NpcDialogue : MonoBehaviour
     public GameObject shopTab;
     public TMP_Text stonesUsedText;
     private int stonesCount;
-    [SerializeField] private GameObject[] itensList;
+    [SerializeField] private GameObject[] basicItensList;
     private int randomIndex;
     private bool canBuy;
 
@@ -36,7 +36,9 @@ public class NpcDialogue : MonoBehaviour
     private void OnTriggerStay(Collider player)
     {
         if(player.gameObject.tag == "Player" && shopping == false)
-        dialoguePanel.SetActive(true);
+        {
+            dialoguePanel.SetActive(true);
+        }
     }
 
     private void OnTriggerExit(Collider player)
@@ -97,17 +99,38 @@ public class NpcDialogue : MonoBehaviour
 
     public void GetRandomWeapon()
     {
+        if(LunarStone.lunarStones > 0)
+        {
+            foreach(GameObject basicWeapons in basicItensList)
+            {
+                basicWeapons.SetActive(false);
+            }           
+        }
+        
+        //Sistema de Gacha (loja aleatória)
         if(canBuy == true)
         {
             GenerateRandomInt();
-            itensList[randomIndex].SetActive(true);
-            canBuy = false;        
+            if(randomIndex <= 90) //Itens normais
+            {   
+                int randomNumber = Random.Range(0, basicItensList.Length);
+                basicItensList[randomNumber].SetActive(true);
+                canBuy = false; 
+            }
+            else if(randomIndex <= 99 && randomIndex > 90) //Itens bons
+            {
+                Debug.Log("Item bom");
+            }
+            else if(randomIndex == 100) //Itens lendários
+            {
+                Debug.Log("Item lendário");
+            }
         }
 
     }
 
     private void GenerateRandomInt()
     {
-        randomIndex = Random.Range(0, itensList.Length);
+        randomIndex = Random.Range(0, 100);
     }
 }
