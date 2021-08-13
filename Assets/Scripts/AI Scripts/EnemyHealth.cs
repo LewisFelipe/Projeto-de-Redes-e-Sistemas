@@ -9,6 +9,7 @@ public class EnemyHealth : MonoBehaviour
     WeaponID weaponID;
     bool takedDamage = false;
     bool isDead = false;
+    bool isTriggered;
 
     private void Start()
     {
@@ -32,26 +33,23 @@ public class EnemyHealth : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Weapon")
+        if(other.gameObject.tag == "Weapon" && !isTriggered)
         {
             weaponID = GameObject.FindGameObjectWithTag("Weapon").GetComponent<WeaponID>();
-            //isAttacking = true;
             DeductHealth(weaponID.weaponDamage);
+            isTriggered = true;
             if(isDead == false)
             {
-                TakedDamage();
+                StartCoroutine(TakedDamage());
             }
         }
     }
 
-    private void OnTriggerStay()
-    {
-        return;
-    }
-
-    private void TakedDamage()
+    IEnumerator TakedDamage()
     {
         enemyAI.TakeDamageAnim();
+        yield return new WaitForSeconds(1.5f);
+        isTriggered = false;
     }
 
     private void EnemyDead()

@@ -8,6 +8,7 @@ public class BasicAttack : MonoBehaviour
     private Animator animator;
     private Rigidbody rb;
     private bool isBlocking = false;
+
     void Start()
     {
         animator = GetComponent<Animator>();
