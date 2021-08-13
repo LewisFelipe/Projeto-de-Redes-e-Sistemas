@@ -17,6 +17,7 @@ public class EnemyAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         anim = GetComponent<Animator>();
+        Physics.IgnoreCollision(target.GetComponent<Collider>(), GetComponent<Collider>());
     }
 
     void Update()

@@ -33,7 +33,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Weapon" && !isTriggered)
+        if(other.gameObject.tag == "Weapon" && !isTriggered && Input.GetMouseButton(0))
         {
             weaponID = GameObject.FindGameObjectWithTag("Weapon").GetComponent<WeaponID>();
             DeductHealth(weaponID.weaponDamage);

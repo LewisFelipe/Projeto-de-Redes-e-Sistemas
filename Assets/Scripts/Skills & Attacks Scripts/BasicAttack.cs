@@ -16,7 +16,10 @@ public class BasicAttack : MonoBehaviour
     }
     void Update()
     {
-        BasicHit();
+        if(NpcDialogue.isShopping == false)
+        {
+            BasicHit();
+        }
     }
 
     private void BasicHit()
@@ -26,7 +29,9 @@ public class BasicAttack : MonoBehaviour
         {
             if(Input.GetMouseButtonDown(0))
             {
+                int randomAtk = Random.Range(0, 3);
                 animator.SetTrigger("Attacking");
+                animator.SetInteger("AtkID", randomAtk);
             }
             else
             {

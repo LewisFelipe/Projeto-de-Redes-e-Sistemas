@@ -21,6 +21,7 @@ public class NpcDialogue : MonoBehaviour
     [SerializeField] private GameObject[] basicItensList;
     private int randomIndex;
     private bool canBuy;
+    public static bool isShopping = false;
 
     private void Start()
     {
@@ -38,6 +39,7 @@ public class NpcDialogue : MonoBehaviour
         if(player.gameObject.tag == "Player" && shopping == false)
         {
             dialoguePanel.SetActive(true);
+            isShopping = true;
         }
     }
 
@@ -49,6 +51,7 @@ public class NpcDialogue : MonoBehaviour
             openShopButton.SetActive(false);
             textNumber = 0;
             isFinishDialogue = false;
+            isShopping = false;
             CloseShop();
         }
     }
@@ -78,12 +81,14 @@ public class NpcDialogue : MonoBehaviour
         shopTab.SetActive(true);
         dialoguePanel.SetActive(false);
         shopping = true;
+        isShopping = true;
     }
 
     public void CloseShop()
     {
         shopTab.SetActive(false);
         shopping = false;
+        isShopping = false;
     }
 
     public void BuyItem()
@@ -104,12 +109,18 @@ public class NpcDialogue : MonoBehaviour
             foreach(GameObject basicWeapons in basicItensList)
             {
                 basicWeapons.SetActive(false);
-            }           
+            }      
         }
         
         //Sistema de Gacha (loja aleatória)
         if(canBuy == true)
         {
+            GameObject weapon = GameObject.FindGameObjectWithTag("Weapon"); //Encontra a arma atual
+            if(weapon.activeSelf) //Desativa arma atual para poder trocar
+            {
+                weapon.SetActive(false);
+            }
+
             GenerateRandomInt();
             if(randomIndex <= 90) //Itens normais
             {   
