@@ -9,6 +9,8 @@ TagManager:
   - Ground
   - CameraRig
   - MouseCamera
+  - Enemy
+  - Weapon
   layers:
   - Default
   - TransparentFX

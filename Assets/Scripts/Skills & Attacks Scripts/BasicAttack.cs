@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BasicAttack : MonoBehaviour
 {
+    public static BasicAttack Instance;
     private Animator animator;
     private Rigidbody rb;
     private bool isBlocking = false;
-
     void Start()
     {
         animator = GetComponent<Animator>();

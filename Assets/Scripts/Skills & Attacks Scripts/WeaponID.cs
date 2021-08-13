@@ -6,6 +6,7 @@ public class WeaponID : MonoBehaviour
 {
     public static WeaponID Instance;
     public string weaponName;
+    public float weaponDamage;
     [HideInInspector] public string ID;
     [HideInInspector] public bool weaponActive;
 
