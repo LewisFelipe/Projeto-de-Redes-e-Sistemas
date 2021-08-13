@@ -4308,6 +4308,7 @@ GameObject:
   - component: {fileID: 1253086821902053}
   - component: {fileID: 1253086821902052}
   - component: {fileID: 1253086821902051}
+  - component: {fileID: 1253086821902054}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -4361,6 +4362,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.53, y: 1.71, z: 0.22}
   m_Center: {x: 0, y: 0.88, z: 0}
+--- !u!114 &1253086821902054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253086821902050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d301cfeb5fca0a7439af611216b68312, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1253961471849466
 GameObject:
   m_ObjectHideFlags: 0
@@ -4498,6 +4511,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4076844011651192}
+  - component: {fileID: 1309855165522385}
   m_Layer: 0
   m_Name: Set Character_Character R Hand_Male_Torso_1
   m_TagString: Untagged
@@ -4505,6 +4519,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1309855165522385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309855165522384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b79cff13d86b6d4eb6f1d4a60c62f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponName: Debug
+  ID: 
+  weaponActive: 0
 --- !u!1 &1310638246161998
 GameObject:
   m_ObjectHideFlags: 0
@@ -6413,6 +6442,8 @@ Transform:
   - {fileID: 3582892908953822143}
   - {fileID: 257596620872816132}
   - {fileID: 3592647434612733166}
+  - {fileID: 225530646791118392}
+  - {fileID: 4180038265048893268}
   m_Father: {fileID: 4145208765587504}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8312,6 +8343,20 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.08873829, y: 0.035199016, z: -0.000000059604645}
     m_Extent: {x: 0.12600185, y: 0.121178046, z: 0.109864995}
   m_DirtyAABB: 0
+--- !u!4 &225530646791118392
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606559063802807426}
+  m_LocalRotation: {x: -0.6929138, y: 0.20489374, z: 0.14672166, w: -0.6755455}
+  m_LocalPosition: {x: -0.053, y: 0.015, z: -0.008}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_Children: []
+  m_Father: {fileID: 4273619509568592}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 77.588005, z: 89.51601}
 --- !u!4 &257596620872816132
 Transform:
   m_ObjectHideFlags: 0
@@ -8342,6 +8387,40 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4220001914714009172}
   m_Mesh: {fileID: 4392267498953536619, guid: 2b89f623a226f1443b656df4d7506e98, type: 3}
+--- !u!1 &606559063802807426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 225530646791118392}
+  - component: {fileID: 3787216644015509917}
+  - component: {fileID: 1398950636114748759}
+  - component: {fileID: 606559063802807427}
+  m_Layer: 0
+  m_Name: Sword4_Yellow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &606559063802807427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606559063802807426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b79cff13d86b6d4eb6f1d4a60c62f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponName: BasicSword
+  ID: 
+  weaponActive: 0
 --- !u!1 &637534704350219454
 GameObject:
   m_ObjectHideFlags: 0
@@ -8353,6 +8432,7 @@ GameObject:
   - component: {fileID: 257596620872816132}
   - component: {fileID: 3764148741527312801}
   - component: {fileID: 1429899614695779691}
+  - component: {fileID: 637534704350219455}
   m_Layer: 0
   m_Name: Axe2H_Basic
   m_TagString: Untagged
@@ -8360,6 +8440,29 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &637534704350219455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637534704350219454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b79cff13d86b6d4eb6f1d4a60c62f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponName: BasicAxe
+  ID: 
+  weaponActive: 0
+--- !u!33 &985621133775112433
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3551556746008321518}
+  m_Mesh: {fileID: 677154472755901971, guid: 1f2df18c8d37e344092e26ad53b0e864, type: 3}
 --- !u!1 &1045117772665053779
 GameObject:
   m_ObjectHideFlags: 0
@@ -9339,6 +9442,8 @@ MonoBehaviour:
   - {fileID: 4247790218679499013}
   - {fileID: 637534704350219454}
   - {fileID: 4220001914714009172}
+  - {fileID: 606559063802807426}
+  - {fileID: 3551556746008321518}
 --- !u!1 &1046105398901435817
 GameObject:
   m_ObjectHideFlags: 0
@@ -14468,6 +14573,45 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!23 &1398950636114748759
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606559063802807426}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 5bf9745e4cdf3544db118edd03429750, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!23 &1429899614695779691
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14585,6 +14729,79 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!23 &3047061709506772027
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3551556746008321518}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 00fef79563c5cf94496c36b91f11b661, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &3551556746008321518
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4180038265048893268}
+  - component: {fileID: 985621133775112433}
+  - component: {fileID: 3047061709506772027}
+  - component: {fileID: 3551556746008321519}
+  m_Layer: 0
+  m_Name: Mace2H_Basic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &3551556746008321519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3551556746008321518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b79cff13d86b6d4eb6f1d4a60c62f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponName: BasicMaceH
+  ID: 
+  weaponActive: 0
 --- !u!4 &3582892908953822143
 Transform:
   m_ObjectHideFlags: 0
@@ -14621,6 +14838,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 637534704350219454}
   m_Mesh: {fileID: 2427691155043905151, guid: 775c96f25b29a464c96e04f3e961ff06, type: 3}
+--- !u!33 &3787216644015509917
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606559063802807426}
+  m_Mesh: {fileID: 2763774367042099228, guid: 26430834ea307e24083f9e03d7fc4f0f, type: 3}
+--- !u!4 &4180038265048893268
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3551556746008321518}
+  m_LocalRotation: {x: -0.6929138, y: 0.20489374, z: 0.14672166, w: -0.6755455}
+  m_LocalPosition: {x: -0.053, y: 0.015, z: -0.008}
+  m_LocalScale: {x: 0.99009883, y: 0.99009883, z: 0.9900991}
+  m_Children: []
+  m_Father: {fileID: 4273619509568592}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 77.588005, z: 89.51601}
 --- !u!1 &4220001914714009172
 GameObject:
   m_ObjectHideFlags: 0
@@ -14632,6 +14871,7 @@ GameObject:
   - component: {fileID: 3592647434612733166}
   - component: {fileID: 465135594478009163}
   - component: {fileID: 2418583711161290625}
+  - component: {fileID: 4220001914714009173}
   m_Layer: 0
   m_Name: Mace1H_Basic
   m_TagString: Untagged
@@ -14639,6 +14879,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &4220001914714009173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4220001914714009172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b79cff13d86b6d4eb6f1d4a60c62f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponName: BasicMace
+  ID: 
+  weaponActive: 0
 --- !u!1 &4247790218679499013
 GameObject:
   m_ObjectHideFlags: 0
@@ -14650,6 +14905,7 @@ GameObject:
   - component: {fileID: 3582892908953822143}
   - component: {fileID: 438860769308339226}
   - component: {fileID: 2446530755647150288}
+  - component: {fileID: 4247790218679499014}
   m_Layer: 0
   m_Name: Spear2H_Basic
   m_TagString: Untagged
@@ -14657,3 +14913,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &4247790218679499014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4247790218679499013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b79cff13d86b6d4eb6f1d4a60c62f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponName: BasicSpear
+  ID: 
+  weaponActive: 0
