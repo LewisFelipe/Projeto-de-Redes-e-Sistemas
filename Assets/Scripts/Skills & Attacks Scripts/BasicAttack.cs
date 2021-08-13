@@ -24,8 +24,8 @@ public class BasicAttack : MonoBehaviour
 
     private void BasicHit()
     {
-        //Basic Sword
-        if(WeaponID.Instance.weaponActive == true && WeaponID.Instance.ID == "BasicSword")
+        
+        if(WeaponID.Instance.weaponActive == true && WeaponID.Instance.ID == "BasicSword") //Basic Sword
         {
             if(Input.GetMouseButtonDown(0))
             {
@@ -52,5 +52,28 @@ public class BasicAttack : MonoBehaviour
                 rb.constraints = RigidbodyConstraints.FreezeRotation;
             }
         }
+
+        if(WeaponID.Instance.weaponActive == true && WeaponID.Instance.ID == "BasicHammer") //Basic Hammer
+        {
+            animator.SetBool("isHammer", true);
+
+            if(Input.GetMouseButtonDown(0))
+            {
+                animator.SetTrigger("Attacking");
+                StartCoroutine(AnimationCooldown());
+            }
+            else
+            {
+                animator.ResetTrigger("Attacking");
+            }
+        }
+    }
+
+    IEnumerator AnimationCooldown()
+    {
+        rb.constraints = RigidbodyConstraints.FreezePosition;
+        yield return new WaitForSeconds(1.7f);
+        rb.constraints = RigidbodyConstraints.None;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 }
