@@ -59,14 +59,14 @@ public class PlayerInputManager : MonoBehaviour
            animator.SetBool("isWalking", true); 
         }
 
-        if(rb.velocity.x > 0f) //Direita
+        if(move.x > 0f) //Direita
         {
             if(Input.mousePosition.x > Screen.width / 2.0f)
             animator.SetFloat("Forward", 1f);
             else if(Input.mousePosition.x < Screen.width / 2.0f)
             animator.SetFloat("Forward", -1f);
         }
-        else if(rb.velocity.x < 0f) //Esquerda
+        else if(move.x < 0f) //Esquerda
         {   
             if(Input.mousePosition.x < Screen.width / 2.0f)
             animator.SetFloat("Forward", 1f);
@@ -74,21 +74,21 @@ public class PlayerInputManager : MonoBehaviour
             animator.SetFloat("Forward", -1f);      
 
         }
-        else if(rb.velocity.z > 0f) //Cima
+        else if(move.y > 0f) //Cima
         {
             if(Input.mousePosition.y < Screen.height / 2.0f)
             animator.SetFloat("Forward", -1f);
             else
             animator.SetFloat("Forward", 1f);
         }
-        else if(rb.velocity.z < 0f) // Baixo
+        else if(move.y < 0f) // Baixo
         {
             if(Input.mousePosition.y < Screen.height / 2.0f)
             animator.SetFloat("Forward", 1f);
             else
             animator.SetFloat("Forward", -1f);
         }
-        
+        Debug.Log(transform.forward + " " + new Vector3(move.x, 0, move.y));
     }
 
     public void Pause()
