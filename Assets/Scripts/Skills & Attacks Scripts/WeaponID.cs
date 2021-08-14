@@ -7,24 +7,50 @@ public class WeaponID : MonoBehaviour
     public static WeaponID Instance;
     public string weaponName;
     public float weaponDamage;
-    [HideInInspector] public string ID;
-    [HideInInspector] public bool weaponActive;
+    public string ID;
+    private Animator anim;
+    public static bool swordEquipped, hammerEquipped;
 
     void Awake()
     {
         Instance = this;
+        anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        //ID = weaponName;
     }
 
     void Update()
     {
+        ID = weaponName;
         if(gameObject.activeSelf)
         {
-            ID = weaponName;
-            weaponActive = true;
+            gameObject.SetActive(true);
         }
         else
         {
-            weaponActive = false;
+            gameObject.SetActive(false);
+        }
+
+        if(ID == "BasicHammer" && gameObject.activeSelf)
+        {
+            anim.SetBool("isHammer", true);
+            hammerEquipped = true;
+        }
+        else
+        {
+           anim.SetBool("isHammer", false);
+           hammerEquipped = false;
+        }
+
+        if(ID == "BasicSword" && gameObject.activeSelf)
+        {
+            anim.SetBool("isSword", true);
+            swordEquipped = true;
+
+        }
+        else
+        {
+           anim.SetBool("isSword", false); 
+           swordEquipped = false;
         }
     }
 }

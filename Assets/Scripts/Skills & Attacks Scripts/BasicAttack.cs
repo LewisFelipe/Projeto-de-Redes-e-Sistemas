@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BasicAttack : MonoBehaviour
 {
@@ -8,29 +9,47 @@ public class BasicAttack : MonoBehaviour
     private Animator animator;
     private Rigidbody rb;
     private bool isBlocking = false;
+    private BoxCollider weaponCollider;
+    private GameObject weapon;
+    public bool swordOn = false;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        weapon = GameObject.FindGameObjectWithTag("Weapon");
+        //weaponCollider = GameObject.FindGameObjectWithTag("Weapon").GetComponent<BoxCollider>();
+        //weaponCollider.enabled = false;
     }
     void Update()
     {
         if(NpcDialogue.isShopping == false)
         {
-            BasicHit();
+            BasicSword();
+            BasicHammer();
+            //BasicHammer();
         }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        //StartCoroutine(EnableCollider());
+        swordOn = WeaponID.swordEquipped;
     }
 
-    private void BasicHit()
+    private void BasicSword()
     {
         
-        if(WeaponID.Instance.weaponActive == true && WeaponID.Instance.ID == "BasicSword") //Basic Sword
+        if(WeaponID.swordEquipped == true && weapon.activeInHierarchy == true) //Basic Sword */
         {
+            animator.SetBool("isSword", true);
+
             if(Input.GetMouseButtonDown(0))
             {
-                int randomAtk = Random.Range(0, 3);
                 animator.SetTrigger("Attacking");
+                int randomAtk = Random.Range(0, 3);
                 animator.SetInteger("AtkID", randomAtk);
             }
             else
@@ -38,6 +57,7 @@ public class BasicAttack : MonoBehaviour
                 animator.ResetTrigger("Attacking");
             }
 
+            /*
             if(Input.GetMouseButtonDown(1))
             {
                 animator.SetTrigger("Blocking");
@@ -51,16 +71,20 @@ public class BasicAttack : MonoBehaviour
                 rb.constraints = RigidbodyConstraints.None;
                 rb.constraints = RigidbodyConstraints.FreezeRotation;
             }
+            */
         }
+    }
 
-        if(WeaponID.Instance.weaponActive == true && WeaponID.Instance.ID == "BasicHammer") //Basic Hammer
+    private void BasicHammer()
+    {
+        if(WeaponID.hammerEquipped == true && weapon.activeInHierarchy == true) //Basic Hammer
         {
             animator.SetBool("isHammer", true);
 
             if(Input.GetMouseButtonDown(0))
             {
                 animator.SetTrigger("Attacking");
-                StartCoroutine(AnimationCooldown());
+                //StartCoroutine(AnimationCooldown());
             }
             else
             {
@@ -68,6 +92,18 @@ public class BasicAttack : MonoBehaviour
             }
         }
     }
+
+    private IEnumerator EnableCollider()
+    {
+        if(Input.GetMouseButton(0))
+        {
+            yield return new WaitForSeconds(.35f);
+            weaponCollider.enabled = true;
+            yield return new WaitForSeconds(.5f);
+            weaponCollider.enabled = false;
+        }
+    }
+
 
     IEnumerator AnimationCooldown()
     {
