@@ -10,16 +10,15 @@ public class BasicAttack : MonoBehaviour
     private Rigidbody rb;
     private bool isBlocking = false;
     private BoxCollider weaponCollider;
-    private GameObject weapon;
-    public bool swordOn = false;
+    private GameObject[] weapon;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-        weapon = GameObject.FindGameObjectWithTag("Weapon");
-        //weaponCollider = GameObject.FindGameObjectWithTag("Weapon").GetComponent<BoxCollider>();
-        //weaponCollider.enabled = false;
+        weapon = GameObject.FindGameObjectsWithTag("Weapon");
+        weaponCollider = GameObject.FindGameObjectWithTag("Weapon").GetComponent<BoxCollider>();
+        weaponCollider.enabled = false;
     }
     void Update()
     {
@@ -27,6 +26,7 @@ public class BasicAttack : MonoBehaviour
         {
             BasicSword();
             BasicHammer();
+            BasicSpear();
             //BasicHammer();
         }
 
@@ -35,14 +35,13 @@ public class BasicAttack : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
-        //StartCoroutine(EnableCollider());
-        swordOn = WeaponID.swordEquipped;
+        StartCoroutine(EnableCollider());
     }
 
     private void BasicSword()
     {
         
-        if(WeaponID.swordEquipped == true && weapon.activeInHierarchy == true) //Basic Sword */
+        if(WeaponID.swordEquipped == true) //Basic Sword */
         {
             animator.SetBool("isSword", true);
 
@@ -77,11 +76,11 @@ public class BasicAttack : MonoBehaviour
 
     private void BasicHammer()
     {
-        if(WeaponID.hammerEquipped == true && weapon.activeInHierarchy == true) //Basic Hammer
+        if(WeaponID.hammerEquipped == true) //Basic Hammer
         {
             animator.SetBool("isHammer", true);
 
-            if(Input.GetMouseButtonDown(0))
+            if(Input.GetMouseButton(0))
             {
                 animator.SetTrigger("Attacking");
                 //StartCoroutine(AnimationCooldown());
@@ -93,14 +92,44 @@ public class BasicAttack : MonoBehaviour
         }
     }
 
+    private void BasicSpear()
+    {
+        if(WeaponID.spearEquipped == true)
+        {
+            animator.SetBool("isSpear", true);
+            if(Input.GetMouseButton(0))
+            {
+                animator.SetTrigger("Attacking");
+            }
+            else
+            {
+                animator.ResetTrigger("Attacking");
+            }                
+        }
+    }
+
     private IEnumerator EnableCollider()
     {
-        if(Input.GetMouseButton(0))
+        if(Input.GetMouseButton(0) && WeaponID.hammerEquipped == true)
         {
-            yield return new WaitForSeconds(.35f);
+            yield return new WaitForSeconds(1f);
             weaponCollider.enabled = true;
-            yield return new WaitForSeconds(.5f);
+            yield return new WaitForSeconds(.2f);
             weaponCollider.enabled = false;
+        }
+        else if(Input.GetMouseButton(0) && WeaponID.swordEquipped == true)
+        {
+            yield return new WaitForSeconds(.5f);
+            weaponCollider.enabled = true;
+            yield return new WaitForSeconds(.2f);
+            weaponCollider.enabled = false;            
+        }
+        else if(Input.GetMouseButton(0) && WeaponID.spearEquipped == true)
+        {
+            yield return new WaitForSeconds(.25f);
+            weaponCollider.enabled = true;
+            yield return new WaitForSeconds(.35f);
+            weaponCollider.enabled = false;             
         }
     }
 
