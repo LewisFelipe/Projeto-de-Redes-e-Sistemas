@@ -3,20 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawnManager : MonoBehaviour
-{/*
+{
     public GameObject[] enemyType;
     public int[] enemyTypePercent;
+    int randEnemyType;
     public float spawnTime;
-    Transform spawnPosition;    
-
-    IEnumerator EnemySpawner()
-    {
-        yield return new WaitForSeconds(spawnTime);
-        for (int i = 0; i < ; i++)
-        {
-            
-        }
-    }
+    public int spawnQuantitie;
+    Transform spawnTransform;
+    public Vector2 spawnPositionOffset;
 
     void SpawnEnemy()
     {
@@ -35,7 +29,24 @@ public class EnemySpawnManager : MonoBehaviour
         {
             randEnemyType = 0;
         }
-        obstacleTypeIndexer[randEnemyType] = false;
+
+        Instantiate(enemyType[randEnemyType], spawnTransform.position + new Vector3(spawnPositionOffset.x, 0, spawnPositionOffset.y), spawnTransform.rotation);
+    } 
+
+    IEnumerator EnemySpawner()
+    {
+        yield return new WaitForSeconds(spawnTime);
+        for (int i = 0; i < spawnQuantitie; i++)
+        {
+            SpawnEnemy();
+            yield return null;
+        }
+        StartCoroutine(EnemySpawner());
     }
-*/
+
+    void Start()
+    {
+        spawnTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        StartCoroutine(EnemySpawner());
+    }
 }
