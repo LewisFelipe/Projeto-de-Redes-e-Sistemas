@@ -27,6 +27,7 @@ public class BasicAttack : MonoBehaviour
             BasicSword();
             BasicHammer();
             BasicSpear();
+            BasicAxe();
             //BasicHammer();
         }
 
@@ -108,6 +109,24 @@ public class BasicAttack : MonoBehaviour
         }
     }
 
+    private void BasicAxe()
+    {
+        if(WeaponID.axeEquipped == true)
+        {
+            animator.SetBool("isAxe", true);
+            if(Input.GetMouseButton(0))
+            {
+                animator.SetTrigger("Attacking");
+                int randomAtk = Random.Range(0, 3);
+                animator.SetInteger("AtkID", randomAtk);
+            }
+            else
+            {
+                animator.ResetTrigger("Attacking");
+            }                
+        }        
+    }
+
     private IEnumerator EnableCollider()
     {
         if(Input.GetMouseButton(0) && WeaponID.hammerEquipped == true)
@@ -126,10 +145,17 @@ public class BasicAttack : MonoBehaviour
         }
         else if(Input.GetMouseButton(0) && WeaponID.spearEquipped == true)
         {
-            yield return new WaitForSeconds(.25f);
+            yield return new WaitForSeconds(.2f);
             weaponCollider.enabled = true;
             yield return new WaitForSeconds(.35f);
             weaponCollider.enabled = false;             
+        }
+        else if(Input.GetMouseButton(0) && WeaponID.axeEquipped == true)
+        {
+            yield return new WaitForSeconds(.25f);
+            weaponCollider.enabled = true;
+            yield return new WaitForSeconds(.35f);
+            weaponCollider.enabled = false;                
         }
     }
 

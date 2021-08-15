@@ -9,7 +9,7 @@ public class WeaponID : MonoBehaviour
     public float weaponDamage;
     public string ID;
     private Animator anim;
-    public static bool swordEquipped, hammerEquipped, spearEquipped;
+    public static bool swordEquipped, hammerEquipped, spearEquipped, axeEquipped;
 
     void Awake()
     {
@@ -63,5 +63,17 @@ public class WeaponID : MonoBehaviour
             anim.SetBool("isSpear", false);
             spearEquipped = false;            
         }
+
+        if(ID == "BasicAxe" && gameObject.activeSelf)
+        {
+            anim.SetBool("isAxe", true);
+            axeEquipped = true;
+        }
+        else
+        {
+            anim.SetBool("isAxe", false);
+            axeEquipped = false;            
+        }    
+
     }
 }
