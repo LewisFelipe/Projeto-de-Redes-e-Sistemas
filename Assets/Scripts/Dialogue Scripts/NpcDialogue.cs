@@ -24,6 +24,8 @@ public class NpcDialogue : MonoBehaviour
     private int canBuyCount;
     public static bool isShopping = false;
     public GameObject lunarStoneButton, generateWeaponButton;
+    private float tweenTime = .55f;
+    public LeanTweenType leanType;
 
     private void Start()
     {
@@ -38,6 +40,17 @@ public class NpcDialogue : MonoBehaviour
         UpdateDialogue();
     }
 
+    private void OnTriggerEnter(Collider player)
+    {
+        if(player.gameObject.tag == "Player" && shopping == false)
+        {
+            LeanTween.cancel(dialoguePanel);
+            transform.localScale = Vector3.one;
+            LeanTween.scale(dialoguePanel, Vector3.one * 1, tweenTime).setEaseOutExpo();
+            dialoguePanel.transform.LeanMoveLocalY(-400f, 0.5f).setEaseOutExpo().delay = 0.1f;
+        }        
+    }
+
     private void OnTriggerStay(Collider player)
     {
         if(player.gameObject.tag == "Player" && shopping == false)
@@ -50,8 +63,10 @@ public class NpcDialogue : MonoBehaviour
     private void OnTriggerExit(Collider player)
     {
         if(player.gameObject.tag == "Player")
-        {
-            dialoguePanel.SetActive(false);
+        {        
+            LeanTween.scale(dialoguePanel, new Vector3(0, 0, 0), tweenTime).setEaseInBack();
+            dialoguePanel.transform.LeanMoveLocalY(-Screen.height, 0.5f).setEaseInExpo();
+            //dialoguePanel.SetActive(false);
             openShopButton.SetActive(false);
             textNumber = 0;
             isFinishDialogue = false;
@@ -82,6 +97,7 @@ public class NpcDialogue : MonoBehaviour
 
     public void OpenShop()
     {
+        shopTab.transform.LeanMoveLocalY(0f, 0.5f).setEaseOutExpo().delay = 0.1f;
         shopTab.SetActive(true);
         dialoguePanel.SetActive(false);
         shopping = true;
@@ -90,7 +106,8 @@ public class NpcDialogue : MonoBehaviour
 
     public void CloseShop()
     {
-        shopTab.SetActive(false);
+        shopTab.transform.LeanMoveLocalY(1920, 0.5f).setEaseInExpo();
+        StartCoroutine(UICooldown(shopTab));
         shopping = false;
         isShopping = false;
     }
@@ -166,5 +183,11 @@ public class NpcDialogue : MonoBehaviour
     private void GenerateRandomInt()
     {
         randomIndex = Random.Range(0, 100);
+    }
+
+    private IEnumerator UICooldown(GameObject panelUI)
+    {
+        yield return new WaitForSeconds(1f);
+        panelUI.SetActive(false);
     }
 }
