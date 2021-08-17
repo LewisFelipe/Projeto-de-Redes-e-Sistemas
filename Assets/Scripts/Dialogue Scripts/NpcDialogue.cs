@@ -141,6 +141,10 @@ public class NpcDialogue : MonoBehaviour
             {   
                 int randomNumber = Random.Range(0, basicItensList.Length);
                 basicItensList[randomNumber].SetActive(true);
+                if(basicItensList[randomNumber].activeSelf == false)
+                {
+                    basicItensList[randomNumber].SetActive(true);
+                }
             }
             else if(randomIndex <= 99 && randomIndex > 90) //Itens bons
             {
@@ -154,6 +158,7 @@ public class NpcDialogue : MonoBehaviour
             canBuyCount--;
             lunarStoneButton.SetActive(true);
             generateWeaponButton.SetActive(false);
+            
         }
 
     }
