@@ -21,12 +21,16 @@ public class NpcDialogue : MonoBehaviour
     [SerializeField] private GameObject[] basicItensList;
     private int randomIndex;
     private bool canBuy;
+    private int canBuyCount;
     public static bool isShopping = false;
+    public GameObject lunarStoneButton, generateWeaponButton;
 
     private void Start()
     {
         openShopButton.SetActive(false);
         isFinishDialogue = false;
+        lunarStoneButton.SetActive(true);
+        generateWeaponButton.SetActive(false);
     }
     
     private void Update()
@@ -98,7 +102,10 @@ public class NpcDialogue : MonoBehaviour
             LunarStone.lunarStones--;
             stonesCount++;
             stonesUsedText.text = stonesCount.ToString();
-            canBuy = true;       
+            //canBuy = true;    
+            canBuyCount++;
+            lunarStoneButton.SetActive(false);
+            generateWeaponButton.SetActive(true);
         }
     }
 
@@ -113,20 +120,27 @@ public class NpcDialogue : MonoBehaviour
         }
         
         //Sistema de Gacha (loja aleatória)
-        if(canBuy == true)
+        if(canBuyCount > 0)
         {
-            GameObject weapon = GameObject.FindGameObjectWithTag("Weapon"); //Encontra a arma atual
+            
+            GameObject[] weapon = GameObject.FindGameObjectsWithTag("Weapon"); //Encontra a arma atual
+            
+            /*
             if(weapon.activeSelf) //Desativa arma atual para poder trocar
             {
                 weapon.SetActive(false);
             }
+            */
+            foreach(GameObject usedWeapons in weapon)
+            {
+                usedWeapons.SetActive(false);
+            }  
 
             GenerateRandomInt();
             if(randomIndex <= 90) //Itens normais
             {   
                 int randomNumber = Random.Range(0, basicItensList.Length);
                 basicItensList[randomNumber].SetActive(true);
-                canBuy = false; 
             }
             else if(randomIndex <= 99 && randomIndex > 90) //Itens bons
             {
@@ -134,8 +148,12 @@ public class NpcDialogue : MonoBehaviour
             }
             else if(randomIndex == 100) //Itens lendários
             {
-                Debug.Log("Item lendário");
+                    Debug.Log("Item lendário");
             }
+
+            canBuyCount--;
+            lunarStoneButton.SetActive(true);
+            generateWeaponButton.SetActive(false);
         }
 
     }

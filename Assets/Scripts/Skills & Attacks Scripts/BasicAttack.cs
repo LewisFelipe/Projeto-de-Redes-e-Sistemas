@@ -11,6 +11,8 @@ public class BasicAttack : MonoBehaviour
     private bool isBlocking = false;
     private BoxCollider weaponCollider;
     private GameObject[] weapon;
+    private PlayerInputManager playerStats;
+    public float defautSpeed = 5f;
 
     void Start()
     {
@@ -19,16 +21,24 @@ public class BasicAttack : MonoBehaviour
         weapon = GameObject.FindGameObjectsWithTag("Weapon");
         weaponCollider = GameObject.FindGameObjectWithTag("Weapon").GetComponent<BoxCollider>();
         weaponCollider.enabled = false;
+        playerStats = GetComponent<PlayerInputManager>();
+
     }
     void Update()
     {
+
+        if(playerStats.speed <= 0)
+        {
+            animator.SetBool("isWalking", false);
+        }
+
         if(NpcDialogue.isShopping == false)
         {
             BasicSword();
             BasicHammer();
             BasicSpear();
             BasicAxe();
-            //BasicHammer();
+            BasicBow();
         }
 
         if(Input.GetKeyDown(KeyCode.R))
@@ -84,6 +94,7 @@ public class BasicAttack : MonoBehaviour
             if(Input.GetMouseButton(0))
             {
                 animator.SetTrigger("Attacking");
+                playerStats.speed = 0;
                 //StartCoroutine(AnimationCooldown());
             }
             else
@@ -91,6 +102,8 @@ public class BasicAttack : MonoBehaviour
                 animator.ResetTrigger("Attacking");
             }
         }
+
+        
     }
 
     private void BasicSpear()
@@ -116,8 +129,8 @@ public class BasicAttack : MonoBehaviour
             animator.SetBool("isAxe", true);
             if(Input.GetMouseButton(0))
             {
-                animator.SetTrigger("Attacking");
                 int randomAtk = Random.Range(0, 3);
+                animator.SetTrigger("Attacking");
                 animator.SetInteger("AtkID", randomAtk);
             }
             else
@@ -127,35 +140,59 @@ public class BasicAttack : MonoBehaviour
         }        
     }
 
+    private void BasicBow()
+    {
+        if(WeaponID.bowEquipped == true)
+        {
+            animator.SetBool("isBow", true);
+            if(Input.GetMouseButton(0))
+            {
+                animator.SetTrigger("Attacking");
+            }
+            else
+            {
+                animator.ResetTrigger("Attacking");
+            }                
+        }      
+    }
+
     private IEnumerator EnableCollider()
     {
-        if(Input.GetMouseButton(0) && WeaponID.hammerEquipped == true)
+        if(Input.GetMouseButton(0) && WeaponID.hammerEquipped == true && NpcDialogue.isShopping == false)
         {
+            playerStats.speed = 0f;
             yield return new WaitForSeconds(1f);
             weaponCollider.enabled = true;
-            yield return new WaitForSeconds(.2f);
+            yield return new WaitForSeconds(.75f);
             weaponCollider.enabled = false;
+            playerStats.speed = defautSpeed;
         }
-        else if(Input.GetMouseButton(0) && WeaponID.swordEquipped == true)
+        else if(Input.GetMouseButton(0) && WeaponID.swordEquipped == true && NpcDialogue.isShopping == false)
         {
+            playerStats.speed = 0f;
             yield return new WaitForSeconds(.5f);
             weaponCollider.enabled = true;
-            yield return new WaitForSeconds(.2f);
-            weaponCollider.enabled = false;            
+            yield return new WaitForSeconds(.5f);
+            weaponCollider.enabled = false;
+            playerStats.speed = defautSpeed;      
         }
-        else if(Input.GetMouseButton(0) && WeaponID.spearEquipped == true)
+        else if(Input.GetMouseButton(0) && WeaponID.spearEquipped == true && NpcDialogue.isShopping == false)
         {
+            playerStats.speed = 0f;
             yield return new WaitForSeconds(.2f);
             weaponCollider.enabled = true;
-            yield return new WaitForSeconds(.35f);
-            weaponCollider.enabled = false;             
+            yield return new WaitForSeconds(.8f);
+            weaponCollider.enabled = false;
+            playerStats.speed = defautSpeed;       
         }
-        else if(Input.GetMouseButton(0) && WeaponID.axeEquipped == true)
+        else if(Input.GetMouseButton(0) && WeaponID.axeEquipped == true && NpcDialogue.isShopping == false)
         {
-            yield return new WaitForSeconds(.25f);
+            playerStats.speed = 0f;
+            yield return new WaitForSeconds(.2f);
             weaponCollider.enabled = true;
-            yield return new WaitForSeconds(.35f);
-            weaponCollider.enabled = false;                
+            yield return new WaitForSeconds(1.15f);
+            weaponCollider.enabled = false;
+            playerStats.speed = defautSpeed;     
         }
     }
 

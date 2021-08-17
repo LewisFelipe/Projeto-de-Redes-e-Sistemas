@@ -11,6 +11,7 @@ TagManager:
   - MouseCamera
   - Enemy
   - Weapon
+  - UsedWeapon
   layers:
   - Default
   - TransparentFX

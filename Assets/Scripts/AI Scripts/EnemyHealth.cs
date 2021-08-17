@@ -49,6 +49,7 @@ public class EnemyHealth : MonoBehaviour
     {
         enemyAI.TakeDamageAnim();
         yield return new WaitForSeconds(1.5f);
+        enemyAI.isTakingDamage = false;
         isTriggered = false;
     }
 

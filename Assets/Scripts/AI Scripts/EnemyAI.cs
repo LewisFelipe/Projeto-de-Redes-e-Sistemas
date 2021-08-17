@@ -11,6 +11,10 @@ public class EnemyAI : MonoBehaviour
     private NavMeshAgent agent;
     private Animator anim;
     private bool isDead;
+    PlayerHealth playerHealth;
+    public int damage = 10;
+    private bool isTriggered;
+    [HideInInspector] public bool isTakingDamage;
 
     void Start()
     {
@@ -18,6 +22,7 @@ public class EnemyAI : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").transform;
         anim = GetComponent<Animator>();
         Physics.IgnoreCollision(target.GetComponent<Collider>(), GetComponent<Collider>());
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
     }
 
     void Update()
@@ -33,14 +38,19 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            //agent.updatePosition = false;
-            anim.SetBool("isWalking", false);
-            anim.SetBool("isAttacking", true);            
+            if(!isTriggered && !isDead)
+            {
+                //agent.updatePosition = false;
+                anim.SetBool("isWalking", false);
+                anim.SetBool("isAttacking", true);
+                StartCoroutine(DamageCooldown());                 
+            }     
         }
     }
 
     public void TakeDamageAnim()
     {
+        isTakingDamage = true;
         anim.SetTrigger("takeDamage");
     }
 
@@ -48,6 +58,16 @@ public class EnemyAI : MonoBehaviour
     {
         isDead = true;
         anim.SetBool("isDead", true);
+    }
+
+    IEnumerator DamageCooldown()
+    {
+        isTriggered = true;
+        yield return new WaitForSeconds(.75f);
+        if(!isTakingDamage && !isDead)
+        playerHealth.health -= damage;
+        yield return new WaitForSeconds(1f);
+        isTriggered = false;
     }
 
 }
