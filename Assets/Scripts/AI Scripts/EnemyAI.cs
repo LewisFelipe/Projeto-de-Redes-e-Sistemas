@@ -43,6 +43,7 @@ public class EnemyAI : MonoBehaviour
                 //agent.updatePosition = false;
                 anim.SetBool("isWalking", false);
                 anim.SetBool("isAttacking", true);
+                if(anim.GetCurrentAnimatorStateInfo(0).IsTag("EnemyAttack"))
                 StartCoroutine(DamageCooldown());                 
             }     
         }
@@ -63,7 +64,7 @@ public class EnemyAI : MonoBehaviour
     IEnumerator DamageCooldown()
     {
         isTriggered = true;
-        yield return new WaitForSeconds(.75f);
+        yield return new WaitForSeconds(.25f);
         if(!isTakingDamage && !isDead)
         playerHealth.health -= damage;
         yield return new WaitForSeconds(1f);
