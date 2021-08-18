@@ -13,6 +13,8 @@ public class BasicAttack : MonoBehaviour
     private GameObject[] weapon;
     private PlayerInputManager playerStats;
     public float defautSpeed = 5f;
+    private PlayerHealth playerHealth;
+    private NpcWizard npcWizard;
 
     void Start()
     {
@@ -20,6 +22,8 @@ public class BasicAttack : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         weapon = GameObject.FindGameObjectsWithTag("Weapon");
         weaponCollider = GameObject.FindGameObjectWithTag("Weapon").GetComponent<BoxCollider>();
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        npcWizard = FindObjectOfType<NpcWizard>();
         weaponCollider.enabled = false;
         playerStats = GetComponent<PlayerInputManager>();
 
@@ -39,6 +43,7 @@ public class BasicAttack : MonoBehaviour
             BasicSpear();
             BasicAxe();
             BasicBow();
+            UseHealthPotion();
         }
 
         if(Input.GetKeyDown(KeyCode.R))
@@ -47,6 +52,20 @@ public class BasicAttack : MonoBehaviour
         }
 
         StartCoroutine(EnableCollider());
+    }
+
+    private void UseHealthPotion()
+    {
+        if(NpcWizard.potionsCount > 0)
+        {
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                playerHealth.health += 25;
+                NpcWizard.potionsCount--;
+                npcWizard.potionsCountText.text = NpcWizard.potionsCount.ToString();
+                playerHealth.ChangeHealthBar();
+            }
+        }
     }
 
     private void BasicSword()
