@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
     public int health;
     private int maxHealth = 100;
+    private float maxHealthFloat = 100f;
     public Image healthBar;
+    public static bool changeMaxLife;
+    public TMP_Text maxLifeText;
 
     private void Start()
     {
@@ -16,11 +20,24 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update()
     {
-        ChangeHealthBar();
+        //ChangeHealthBar();
+        if(changeMaxLife == true)
+        {
+            maxHealth += 50;
+            maxHealthFloat += 50;
+            changeMaxLife = false;
+            ChangeHealthBar();
+        }
+
+        maxLifeText.text = maxHealth.ToString();
     }
 
-    private void ChangeHealthBar()
+    public void ChangeHealthBar()
     {
-        healthBar.fillAmount = health / 100f;
+        healthBar.fillAmount = health / maxHealthFloat;
+        if(health >= maxHealth)
+        {
+            health = maxHealth;
+        }
     }
 }

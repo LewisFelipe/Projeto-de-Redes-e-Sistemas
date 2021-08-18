@@ -5,10 +5,20 @@ using UnityEngine;
 public class LunarStone : MonoBehaviour
 {
     public static int lunarStones;
+    private UIController uiController;
 
-    private void OnTriggerEnter()
+    private void Start()
     {
-        lunarStones++;
-        Destroy(gameObject);
+        uiController = FindObjectOfType<UIController>();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            lunarStones++;
+            uiController.UpdateCount();
+            Destroy(gameObject);            
+        }
     }
 }
