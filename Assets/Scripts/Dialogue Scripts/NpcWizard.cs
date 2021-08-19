@@ -133,9 +133,9 @@ public class NpcWizard : MonoBehaviour
 
     public void BuyMaxLifePotion()
     {
-        if(HealthFlower.healthFlower > 5)
+        if(HealthFlower.healthFlower >= 10)
         {
-            HealthFlower.healthFlower -= 5;
+            HealthFlower.healthFlower -= 10;
             maxLifeButton.SetActive(true);
             buyMaxLifeButton.SetActive(false); 
         }       

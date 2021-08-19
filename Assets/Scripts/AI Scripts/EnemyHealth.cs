@@ -11,6 +11,7 @@ public class EnemyHealth : MonoBehaviour
     bool isDead = false;
     bool isTriggered;
     public GameObject lunarStoneDrop;
+    public GameObject dropArea;
 
     private void Start()
     {
@@ -63,7 +64,7 @@ public class EnemyHealth : MonoBehaviour
     private void EnemyDead()
     {
         enemyAI.EnemyDeathAnim();
-        Vector3 pos = new Vector3(transform.position.x - 1, transform.position.y + 1f, transform.position.z);
+        Vector3 pos = new Vector3(dropArea.transform.position.x - 1, dropArea.transform.position.y + 1f, dropArea.transform.position.z);
         GameObject drop = Instantiate(lunarStoneDrop, pos, lunarStoneDrop.transform.rotation);
         drop.SetActive(false);
         StartCoroutine(showDrop(drop));
