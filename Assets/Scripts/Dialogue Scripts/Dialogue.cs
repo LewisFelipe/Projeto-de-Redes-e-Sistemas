@@ -12,9 +12,14 @@ public class Dialogue : MonoBehaviour
     private int textNumber = 0;
     private float tweenTime = .55f;
     private bool isTalking;
+    public GameObject cinematicPanel;
+    public TMP_Text cinematicTitle;
+    public string cinematicTitleText;
+    public GameObject barsCanvas;
     
     private void Start()
     {
+        cinematicPanel.SetActive(false);
         UpdateDialogue();
     }
 
@@ -59,9 +64,24 @@ public class Dialogue : MonoBehaviour
         textNumber++;
         if(textNumber >= dialogueString.Length)
         {
+            StartCoroutine(OpenCinematicTitle());
             textNumber = 0;
         }
         UpdateDialogue();
-    }        
+    }
+
+    IEnumerator OpenCinematicTitle()
+    {
+        cinematicPanel.SetActive(true);
+        barsCanvas.SetActive(false);
+        cinematicTitle.text = cinematicTitleText;
+        cinematicPanel.transform.LeanMoveLocalY(-100f, 2.5f).setEaseOutExpo().delay = 0.1f;
+        yield return new WaitForSeconds(3f);
+        cinematicPanel.transform.LeanMoveLocalY(1920, 1.5f).setEaseInExpo();
+        yield return new WaitForSeconds(2f);
+        cinematicPanel.SetActive(false);
+        barsCanvas.SetActive(true);
+
+    }     
     
 }
