@@ -7,7 +7,7 @@ using TMPro;
 public class PlayerHealth : MonoBehaviour
 {
     public int health;
-    private int maxHealth = 100;
+    [HideInInspector] public int maxHealth = 100;
     private float maxHealthFloat = 100f;
     public Image healthBar;
     public static bool changeMaxLife;
@@ -26,6 +26,7 @@ public class PlayerHealth : MonoBehaviour
             maxHealth += 50;
             maxHealthFloat += 50;
             changeMaxLife = false;
+            health = maxHealth;
             ChangeHealthBar();
         }
 

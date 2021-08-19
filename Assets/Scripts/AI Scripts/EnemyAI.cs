@@ -29,23 +29,30 @@ public class EnemyAI : MonoBehaviour
     {
         float distance = Vector3.Distance(transform.position, target.position);
 
-        if(distance > 2 && isDead == false)
+        if(distance <= 10)
         {
-            //agent.updatePosition = true;
-            agent.SetDestination(target.position);
-            anim.SetBool("isWalking", true);
-            anim.SetBool("isAttacking", false);
+            if(distance > 2 && isDead == false)
+            {
+                //agent.updatePosition = true;
+                agent.SetDestination(target.position);
+                anim.SetBool("isWalking", true);
+                anim.SetBool("isAttacking", false);
+            }
+            else
+            {
+                if(!isTriggered && !isDead)
+                {
+                    //agent.updatePosition = false;
+                    anim.SetBool("isWalking", false);
+                    anim.SetBool("isAttacking", true);
+                    if(anim.GetCurrentAnimatorStateInfo(0).IsTag("EnemyAttack"))
+                    StartCoroutine(DamageCooldown());          
+                }     
+            }
         }
         else
         {
-            if(!isTriggered && !isDead)
-            {
-                //agent.updatePosition = false;
-                anim.SetBool("isWalking", false);
-                anim.SetBool("isAttacking", true);
-                if(anim.GetCurrentAnimatorStateInfo(0).IsTag("EnemyAttack"))
-                StartCoroutine(DamageCooldown());          
-            }     
+            StartCoroutine(StopWalkCooldown());
         }
     }
 
@@ -59,6 +66,13 @@ public class EnemyAI : MonoBehaviour
     {
         isDead = true;
         anim.SetBool("isDead", true);
+    }
+
+    IEnumerator StopWalkCooldown()
+    {
+        yield return new WaitForSeconds(2f);
+        anim.SetBool("isWalking", false);
+        anim.SetBool("isAttacking", false);
     }
 
     IEnumerator DamageCooldown()

@@ -21,7 +21,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 7ce7194366348ba49ac64a53db44b087, type: 2}
+  m_Motion: {fileID: 7400000, guid: 4e0914b46409a854faecc962319dde56, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -88,7 +88,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Armature|andando
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 6688231677900070622}
@@ -101,7 +101,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 04cd9c0cc965c3c498c0733986721086, type: 2}
+  m_Motion: {fileID: 7400000, guid: 2fad93ebaec99f945a4dc821a21464c1, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

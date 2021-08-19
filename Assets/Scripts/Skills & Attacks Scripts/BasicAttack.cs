@@ -56,7 +56,7 @@ public class BasicAttack : MonoBehaviour
 
     private void UseHealthPotion()
     {
-        if(NpcWizard.potionsCount > 0)
+        if(NpcWizard.potionsCount > 0 && playerHealth.health < playerHealth.maxHealth)
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
