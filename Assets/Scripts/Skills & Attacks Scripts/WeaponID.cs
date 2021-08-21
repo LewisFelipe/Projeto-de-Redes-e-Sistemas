@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponID : MonoBehaviour
 {
     public static WeaponID Instance;
+    private BoxCollider weaponCollider;
     public string weaponName;
     public float weaponDamage;
     public string ID;
@@ -15,7 +16,9 @@ public class WeaponID : MonoBehaviour
     {
         Instance = this;
         anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        weaponCollider = GetComponent<BoxCollider>();
         //ID = weaponName;
+        weaponCollider.enabled = false;
     }
 
     void Update()
@@ -86,5 +89,39 @@ public class WeaponID : MonoBehaviour
             bowEquipped = false;          
         } 
 
+        StartCoroutine(WeaponColliderFix());
+
+    }
+
+    private IEnumerator WeaponColliderFix()
+    {
+        if(Input.GetMouseButton(0) && weaponName == "BasicHammer")
+        {
+            yield return new WaitForSeconds(.5f);
+            weaponCollider.enabled = true;
+            yield return new WaitForSeconds(.5f);
+            weaponCollider.enabled = false;         
+        }
+        else if(Input.GetMouseButton(0) && weaponName == "BasicSword")
+        {
+            yield return new WaitForSeconds(.2f);
+            weaponCollider.enabled = true;
+            yield return new WaitForSeconds(.35f);
+            weaponCollider.enabled = false;            
+        }
+        else if(Input.GetMouseButton(0) && weaponName == "BasicSpear")
+        {
+            yield return new WaitForSeconds(.15f);
+            weaponCollider.enabled = true;
+            yield return new WaitForSeconds(.3f);
+            weaponCollider.enabled = false;          
+        }
+        else if(Input.GetMouseButton(0) && weaponName == "BasicAxe")
+        {
+            yield return new WaitForSeconds(1f);
+            weaponCollider.enabled = true;
+            yield return new WaitForSeconds(.35f);
+            weaponCollider.enabled = false;        
+        }
     }
 }

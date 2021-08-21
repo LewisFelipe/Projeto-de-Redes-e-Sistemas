@@ -15,6 +15,7 @@ public class BasicAttack : MonoBehaviour
     public float defautSpeed = 5f;
     private PlayerHealth playerHealth;
     private NpcWizard npcWizard;
+    private bool canAttack = true;
 
     void Start()
     {
@@ -75,11 +76,12 @@ public class BasicAttack : MonoBehaviour
         {
             animator.SetBool("isSword", true);
 
-            if(Input.GetMouseButtonDown(0))
+            if(Input.GetMouseButtonDown(0) && canAttack)
             {
                 animator.SetTrigger("Attacking");
                 int randomAtk = Random.Range(0, 3);
                 animator.SetInteger("AtkID", randomAtk);
+                StartCoroutine(AttackCooldown());
             }
             else
             {
@@ -110,11 +112,12 @@ public class BasicAttack : MonoBehaviour
         {
             animator.SetBool("isHammer", true);
 
-            if(Input.GetMouseButton(0))
+            if(Input.GetMouseButton(0) && canAttack)
             {
                 animator.SetTrigger("Attacking");
                 playerStats.speed = 0;
                 //StartCoroutine(AnimationCooldown());
+                StartCoroutine(AttackCooldown());
             }
             else
             {
@@ -130,9 +133,10 @@ public class BasicAttack : MonoBehaviour
         if(WeaponID.spearEquipped == true)
         {
             animator.SetBool("isSpear", true);
-            if(Input.GetMouseButton(0))
+            if(Input.GetMouseButton(0) && canAttack)
             {
                 animator.SetTrigger("Attacking");
+                StartCoroutine(AttackCooldown());
             }
             else
             {
@@ -146,11 +150,12 @@ public class BasicAttack : MonoBehaviour
         if(WeaponID.axeEquipped == true)
         {
             animator.SetBool("isAxe", true);
-            if(Input.GetMouseButton(0))
+            if(Input.GetMouseButton(0) && canAttack)
             {
                 int randomAtk = Random.Range(0, 3);
                 animator.SetTrigger("Attacking");
                 animator.SetInteger("AtkID", randomAtk);
+                StartCoroutine(AttackCooldown());
             }
             else
             {
@@ -164,9 +169,10 @@ public class BasicAttack : MonoBehaviour
         if(WeaponID.bowEquipped == true)
         {
             animator.SetBool("isBow", true);
-            if(Input.GetMouseButton(0))
+            if(Input.GetMouseButton(0) && canAttack)
             {
                 animator.SetTrigger("Attacking");
+                StartCoroutine(AttackCooldown());
             }
             else
             {
@@ -213,6 +219,13 @@ public class BasicAttack : MonoBehaviour
             weaponCollider.enabled = false;
             playerStats.speed = defautSpeed;     
         }
+    }
+
+    IEnumerator AttackCooldown()
+    {
+        canAttack = false;
+        yield return new WaitForSeconds(1.5f);
+        canAttack = true;
     }
 
 
