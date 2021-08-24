@@ -2972,6 +2972,7 @@ GameObject:
   - component: {fileID: 239203304}
   - component: {fileID: 239203302}
   - component: {fileID: 239203306}
+  - component: {fileID: 239203308}
   m_Layer: 0
   m_Name: MoonTitan
   m_TagString: Enemy
@@ -3055,6 +3056,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1069487133}
   bossHealth: 200
+  bossInterface: {fileID: 689800866}
 --- !u!1 &239203307
 GameObject:
   m_ObjectHideFlags: 0
@@ -3071,6 +3073,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &239203308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239203301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82ab607626fc3f444abab20e37a0fb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &239203309
 GameObject:
   m_ObjectHideFlags: 0
@@ -40156,7 +40170,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &4848315540952732805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53997,7 +54011,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &8821400507404455401
 MonoBehaviour:
   m_ObjectHideFlags: 0

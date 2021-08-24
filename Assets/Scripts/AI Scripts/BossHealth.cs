@@ -18,6 +18,7 @@ public class BossHealth : MonoBehaviour
     public Image healthBar;
     public float bossHealth;
     private float maxHealth = 2000f;
+    public GameObject bossInterface;
 
     private void Start()
     {
@@ -105,10 +106,11 @@ public class BossHealth : MonoBehaviour
         isTriggered = false;
     }
 
-    public void EnemyDeathAnim()
+    private void EnemyDeathAnim()
     {
         isDead = true;
         animator.SetBool("isDead", true);
+        bossInterface.SetActive(false);
     }    
 
     private void EnemyDead()

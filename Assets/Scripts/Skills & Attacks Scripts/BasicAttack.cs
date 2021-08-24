@@ -76,7 +76,7 @@ public class BasicAttack : MonoBehaviour
         {
             animator.SetBool("isSword", true);
 
-            if(Input.GetMouseButtonDown(0) && canAttack)
+            if(Input.GetMouseButton(0) && canAttack)
             {
                 animator.SetTrigger("Attacking");
                 int randomAtk = Random.Range(0, 3);
@@ -228,12 +228,4 @@ public class BasicAttack : MonoBehaviour
         canAttack = true;
     }
 
-
-    IEnumerator AnimationCooldown()
-    {
-        rb.constraints = RigidbodyConstraints.FreezePosition;
-        yield return new WaitForSeconds(1.7f);
-        rb.constraints = RigidbodyConstraints.None;
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
-    }
 }
