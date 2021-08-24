@@ -39853,6 +39853,16 @@ PrefabInstance:
       propertyPath: speed
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 1789898934222972219, guid: 478a09f62d621c34dbf501db23c415a6,
+        type: 3}
+      propertyPath: fallSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789898934222972220, guid: 478a09f62d621c34dbf501db23c415a6,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.22
+      objectReference: {fileID: 0}
     - target: {fileID: 1789898934222972222, guid: 478a09f62d621c34dbf501db23c415a6,
         type: 3}
       propertyPath: defautSpeed

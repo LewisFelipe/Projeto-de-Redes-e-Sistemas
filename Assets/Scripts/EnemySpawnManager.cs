@@ -1,9 +1,22 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawnManager : MonoBehaviour
 {
+    static private EnemySpawnManager esManager;
+    public static EnemySpawnManager Singleton
+    {
+        get
+        {
+            if(esManager == null)
+            {
+                esManager = new EnemySpawnManager();
+            }
+            return esManager;
+        }
+    }
+
     public GameObject[] enemyType;
     public int[] enemyTypePercent;
     int randEnemyType;
