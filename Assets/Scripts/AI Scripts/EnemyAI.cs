@@ -54,6 +54,8 @@ public class EnemyAI : MonoBehaviour
         {
             StartCoroutine(StopWalkCooldown());
         }
+
+        CheckEnemyState();
     }
 
     public void TakeDamageAnim()
@@ -84,6 +86,18 @@ public class EnemyAI : MonoBehaviour
         playerHealth.ChangeHealthBar();
         yield return new WaitForSeconds(1f);
         isTriggered = false;
+    }
+
+    private void CheckEnemyState()
+    {
+        if(anim.GetCurrentAnimatorStateInfo(0).IsTag("Idle"))
+        {
+            agent.speed = 0;
+        }
+        else
+        {
+            agent.speed = 1.5f;
+        }
     }
 
 }
