@@ -8,21 +8,15 @@ public class PlayerInputManager : MonoBehaviour
     MovementManager mManager = new MovementManager();
     PlayerControls playerControls;
     Rigidbody rb;
+    public GameObject attackPosition;
     public bool usingMouse = true;
     public bool isGrounded;
     public Vector2 move;
+    public int sprint;
     public Vector2 aim;
     public float speed;
     public float fallSpeed;
     private Animator animator;
-
-
-    /*public bool isGamepad(InputControlScheme controlScheme)
-    {
-        if(controlScheme.namespace == "Gamepad")
-            return true;
-        return false;
-    }*/
 
     void PlayerWalkingAnimation()
     {
@@ -34,10 +28,11 @@ public class PlayerInputManager : MonoBehaviour
         }
         else
         {
-           animator.SetBool("isWalking", true); 
+           animator.SetBool("isWalking", true);
+           animator.SetFloat("Forward", 1f);
         }
 
-        if(move.x > 0f) //Direita
+        /*if(move.x > 0f) //Direita
         {
             if(Input.mousePosition.x > Screen.width / 2.0f)
             animator.SetFloat("Forward", 1f);
@@ -65,7 +60,7 @@ public class PlayerInputManager : MonoBehaviour
             animator.SetFloat("Forward", 1f);
             else
             animator.SetFloat("Forward", -1f);
-        }
+        }*/
     }
 
     void PlayerAim()
@@ -77,21 +72,23 @@ public class PlayerInputManager : MonoBehaviour
             float cameraDistance = Camera.main.transform.parent.position.y - transform.position.y;
             Vector3 position = GameObject.FindGameObjectWithTag("MouseCamera").GetComponent<Camera>().ScreenToWorldPoint(new Vector3(aim.x, aim.y, cameraDistance));
             positionToLookAt = new Vector3(position.x, transform.position.y, position.z);
-            mManager.Rotate(transform, positionToLookAt);
+            mManager.Rotate(attackPosition.transform, positionToLookAt);
             //Cursor.visible = false;
         }
         else
         {
             positionToLookAt = new Vector3(aim.x + transform.position.x, transform.position.y, aim.y + transform.position.y);
-            mManager.Rotate(transform, positionToLookAt);
+            mManager.Rotate(attackPosition.transform, positionToLookAt);
         }
     }
 
     void PlayerMove()
     {
+        mManager.Rotate(transform, new Vector3(move.x + transform.position.x ,transform.position.y, move.y + transform.position.z));
+
         if(isGrounded)
         {
-            mManager.Move(rb, new Vector3(move.x, rb.velocity.y, move.y), speed, 1);
+            mManager.Move(rb, new Vector3(move.x, rb.velocity.y, move.y), speed, 1 << sprint);
             PlayerWalkingAnimation();
         }
         else
@@ -137,13 +134,18 @@ public class PlayerInputManager : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerControls = new PlayerControls();
         animator = GetComponent<Animator>();
-        //feetToGround = GetComponentInchildren<BoxCollider>();
+
+        playerControls.Gameplay.Run.performed += context => sprint = 1;
+        playerControls.Gameplay.Run.canceled += context => sprint = 0;
 
         playerControls.Gameplay.Move.performed += context => move = context.ReadValue<Vector2>();
         playerControls.Gameplay.Move.canceled += context => move = Vector2.zero;
 
+
         playerControls.Gameplay.Aim.performed += context => aim = context.ReadValue<Vector2>();
         playerControls.Gameplay.Aim.canceled += context => aim = Vector2.zero;
+
+        //playerControls.Gameplay.Attack.performed += context => 
     }
     void FixedUpdate()
     {
