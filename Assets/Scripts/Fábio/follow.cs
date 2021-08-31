@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollowController : MonoBehaviour
+public class follow : MonoBehaviour
 {
+    public Transform objectToFollow;
+    public Vector3 offset;
+    public float followSpeed = 1;
+    //public float lookSpeed = 10;
     
-    public void LookAtTarget(){
+    /*public void LookAtTarget(){
         Vector3 _lookDirection = objectToFollow.position - transform.position;
         Quaternion _rot = Quaternion.LookRotation(_lookDirection, Vector3.up);
         transform.rotation = Quaternion.Lerp(transform.rotation, _rot, lookSpeed * Time.deltaTime);
-    }
+    }*/
 
     public void MoveToTarget(){
         Vector3 _targetPos = objectToFollow.position + 
@@ -21,13 +25,7 @@ public class CameraFollowController : MonoBehaviour
     }
 
     private void FixedUpdate(){
-        LookAtTarget();
+        //LookAtTarget();
         MoveToTarget();
     }
-    
-    public Transform objectToFollow;
-    public Vector3 offset;
-    public float followSpeed = 10;
-    public float lookSpeed = 10;
-
 }
