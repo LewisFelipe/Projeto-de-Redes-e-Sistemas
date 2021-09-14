@@ -8,6 +8,7 @@ public class BossSkills : MonoBehaviour
     private BossHealth bossStats;
     private bool isHealing = false;
     public SphereCollider rightHand, LeftHand;
+    public static bool titanAttacking = false;
 
     void Start()
     {
@@ -21,7 +22,7 @@ public class BossSkills : MonoBehaviour
         CheckAnimations();
     }
 
-    private void CheckAnimations()
+    public void CheckAnimations()
     {
         if(animator.GetCurrentAnimatorStateInfo(0).IsTag("EnemyHeal") && isHealing == false)
         {
@@ -30,34 +31,24 @@ public class BossSkills : MonoBehaviour
             bossStats.ChangeHealthBar();
         }
 
-        if(animator.GetCurrentAnimatorStateInfo(0).IsTag("EnemyAttack01"))
-        {
-            isHealing = false;
-        }
+        StartCoroutine(BossDamageCooldown());
+              
+    }
 
-        if(animator.GetCurrentAnimatorStateInfo(0).IsTag("EnemyAttack02"))
+    private IEnumerator BossDamageCooldown()
+    {
+        if(animator.GetCurrentAnimatorStateInfo(0).IsTag("EnemyAttack01") || (animator.GetCurrentAnimatorStateInfo(0).IsTag("EnemyAttack02")) 
+        || (animator.GetCurrentAnimatorStateInfo(0).IsTag("EnemyAttack03")))
         {
-            rightHand.enabled = true;
-            LeftHand.enabled = true;
             isHealing = false;
-        }
-        else if(animator.GetCurrentAnimatorStateInfo(0).IsTag("EnemyAttack02") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
-        {
-            rightHand.enabled = false;
-            LeftHand.enabled = false;
-        }
+            yield return new WaitForSeconds(.5f);
+            titanAttacking = true;
 
-        if(animator.GetCurrentAnimatorStateInfo(0).IsTag("EnemyAttack03"))
-        {
-            rightHand.enabled = true;
-            LeftHand.enabled = true;
-            isHealing = false;
         }
-        else if(animator.GetCurrentAnimatorStateInfo(0).IsTag("EnemyAttack03") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+        else
         {
-            rightHand.enabled = false;
-            LeftHand.enabled = false;                
-        }
+            titanAttacking = false;
+        }        
     }
 
 

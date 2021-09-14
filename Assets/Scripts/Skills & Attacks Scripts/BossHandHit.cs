@@ -12,21 +12,28 @@ public class BossHandHit : MonoBehaviour
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Player" && !isTriggered)
+        {
+            if(BossSkills.titanAttacking == true)
+            {
+                playerHealth.health -= 10;
+                playerHealth.ChangeHealthBar();
+                isTriggered = true;
+            }
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if(other.gameObject.tag == "Player" && !isTriggered)
         {
-            playerHealth.health -= 15;
-            playerHealth.ChangeHealthBar();
             isTriggered = true;
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.gameObject.tag == "Player" && !isTriggered)
+        else
         {
             isTriggered = false;
-        }        
+        }      
     }
 }
