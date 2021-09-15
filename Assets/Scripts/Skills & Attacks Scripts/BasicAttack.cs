@@ -1,10 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class BasicAttack : MonoBehaviour
 {
+    MovementManager mManager = new MovementManager();
     public static BasicAttack Instance;
     private Animator animator;
     private Rigidbody rb;
@@ -16,6 +17,9 @@ public class BasicAttack : MonoBehaviour
     private PlayerHealth playerHealth;
     private NpcWizard npcWizard;
     private bool canAttack = true;
+    public static bool isAttacking = false;
+
+    public int cooldown;
 
     void Start()
     {
@@ -26,9 +30,9 @@ public class BasicAttack : MonoBehaviour
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
         npcWizard = FindObjectOfType<NpcWizard>();
         weaponCollider.enabled = false;
-        playerStats = GetComponent<PlayerInputManager>();
-
+        playerStats = FindObjectOfType<PlayerInputManager>();
     }
+
     void Update()
     {
 
@@ -37,7 +41,7 @@ public class BasicAttack : MonoBehaviour
             animator.SetBool("isWalking", false);
         }
 
-        if(NpcDialogue.isShopping == false)
+        if(!NpcDialogue.isShopping)
         {
             BasicSword();
             BasicHammer();
@@ -57,26 +61,23 @@ public class BasicAttack : MonoBehaviour
 
     private void UseHealthPotion()
     {
-        if(NpcWizard.potionsCount > 0 && playerHealth.health < playerHealth.maxHealth)
+        if(NpcWizard.potionsCount > 0 && playerHealth.health < playerHealth.maxHealth && playerStats.usePotion)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                playerHealth.health += 25;
-                NpcWizard.potionsCount--;
-                npcWizard.potionsCountText.text = NpcWizard.potionsCount.ToString();
-                playerHealth.ChangeHealthBar();
-            }
+            playerHealth.health += 25;
+            NpcWizard.potionsCount--;
+            npcWizard.potionsCountText.text = NpcWizard.potionsCount.ToString();
+            playerHealth.ChangeHealthBar();
         }
     }
 
     private void BasicSword()
     {
         
-        if(WeaponID.swordEquipped == true) //Basic Sword */
+        if(WeaponID.swordEquipped == true) //Basic Sword
         {
             animator.SetBool("isSword", true);
 
-            if(Input.GetMouseButton(0) && canAttack)
+            if(playerStats.attackButtonPressed && canAttack)
             {
                 animator.SetTrigger("Attacking");
                 int randomAtk = Random.Range(0, 3);
@@ -88,8 +89,7 @@ public class BasicAttack : MonoBehaviour
                 animator.ResetTrigger("Attacking");
             }
 
-            /*
-            if(Input.GetMouseButtonDown(1))
+            /*if(Input.GetMouseButtonDown(1))
             {
                 animator.SetTrigger("Blocking");
                 animator.SetBool("FinishAnimation", false);
@@ -101,8 +101,7 @@ public class BasicAttack : MonoBehaviour
                 animator.SetBool("FinishAnimation", true);
                 rb.constraints = RigidbodyConstraints.None;
                 rb.constraints = RigidbodyConstraints.FreezeRotation;
-            }
-            */
+            }*/
         }
     }
 
@@ -112,7 +111,7 @@ public class BasicAttack : MonoBehaviour
         {
             animator.SetBool("isHammer", true);
 
-            if(Input.GetMouseButton(0) && canAttack)
+            if(playerStats.attackButtonPressed && canAttack)
             {
                 animator.SetTrigger("Attacking");
                 playerStats.speed = 0;
@@ -133,7 +132,8 @@ public class BasicAttack : MonoBehaviour
         if(WeaponID.spearEquipped == true)
         {
             animator.SetBool("isSpear", true);
-            if(Input.GetMouseButton(0) && canAttack)
+
+            if(playerStats.attackButtonPressed && canAttack)
             {
                 animator.SetTrigger("Attacking");
                 StartCoroutine(AttackCooldown());
@@ -150,7 +150,8 @@ public class BasicAttack : MonoBehaviour
         if(WeaponID.axeEquipped == true)
         {
             animator.SetBool("isAxe", true);
-            if(Input.GetMouseButton(0) && canAttack)
+
+            if(playerStats.attackButtonPressed && canAttack)
             {
                 int randomAtk = Random.Range(0, 3);
                 animator.SetTrigger("Attacking");
@@ -169,7 +170,8 @@ public class BasicAttack : MonoBehaviour
         if(WeaponID.bowEquipped == true)
         {
             animator.SetBool("isBow", true);
-            if(Input.GetMouseButton(0) && canAttack)
+
+            if(playerStats.attackButtonPressed && canAttack)
             {
                 animator.SetTrigger("Attacking");
                 StartCoroutine(AttackCooldown());
@@ -183,41 +185,49 @@ public class BasicAttack : MonoBehaviour
 
     private IEnumerator EnableCollider()
     {
-        if(Input.GetMouseButton(0) && WeaponID.hammerEquipped == true && NpcDialogue.isShopping == false)
+        if(playerStats.attackButtonPressed && WeaponID.hammerEquipped == true && NpcDialogue.isShopping == false)
         {
+            isAttacking = true;
             playerStats.speed = 0f;
             yield return new WaitForSeconds(1f);
             weaponCollider.enabled = true;
             yield return new WaitForSeconds(.75f);
             weaponCollider.enabled = false;
+            isAttacking = false;
             playerStats.speed = defautSpeed;
         }
-        else if(Input.GetMouseButton(0) && WeaponID.swordEquipped == true && NpcDialogue.isShopping == false)
+        else if(playerStats.attackButtonPressed && WeaponID.swordEquipped == true && NpcDialogue.isShopping == false)
         {
+            isAttacking = true;
             playerStats.speed = 0f;
             yield return new WaitForSeconds(.5f);
             weaponCollider.enabled = true;
             yield return new WaitForSeconds(.5f);
             weaponCollider.enabled = false;
+            isAttacking = false;
             playerStats.speed = defautSpeed;      
         }
-        else if(Input.GetMouseButton(0) && WeaponID.spearEquipped == true && NpcDialogue.isShopping == false)
+        else if(playerStats.attackButtonPressed && WeaponID.spearEquipped == true && NpcDialogue.isShopping == false)
         {
+            isAttacking = true;
             playerStats.speed = 0f;
             yield return new WaitForSeconds(.2f);
             weaponCollider.enabled = true;
             yield return new WaitForSeconds(.8f);
             weaponCollider.enabled = false;
+            isAttacking = false;
             playerStats.speed = defautSpeed;       
         }
-        else if(Input.GetMouseButton(0) && WeaponID.axeEquipped == true && NpcDialogue.isShopping == false)
+        else if(playerStats.attackButtonPressed && WeaponID.axeEquipped == true && NpcDialogue.isShopping == false)
         {
+            isAttacking = true;
             playerStats.speed = 0f;
             yield return new WaitForSeconds(.2f);
             weaponCollider.enabled = true;
             yield return new WaitForSeconds(1.15f);
             weaponCollider.enabled = false;
-            playerStats.speed = defautSpeed;     
+            isAttacking = false;
+            playerStats.speed = defautSpeed;
         }
     }
 
@@ -225,7 +235,8 @@ public class BasicAttack : MonoBehaviour
     {
         canAttack = false;
         yield return new WaitForSeconds(1.5f);
+     
         canAttack = true;
     }
-
+    /////////////////////////////////////////////////////NewCode///////////////////////////////////////////////////////
 }

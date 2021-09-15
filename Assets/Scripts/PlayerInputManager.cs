@@ -10,7 +10,8 @@ public class PlayerInputManager : MonoBehaviour
     Rigidbody rb;
     public GameObject attackPosition;
     public bool usingMouse = true;
-    public bool isGrounded;
+    //[HideInInspector]
+    public bool isGrounded = false, attackButtonPressed = false, usePotion = false;
     public Vector2 move;
     public int sprint;
     public Vector2 aim;
@@ -31,54 +32,45 @@ public class PlayerInputManager : MonoBehaviour
            animator.SetBool("isWalking", true);
            animator.SetFloat("Forward", 1f);
         }
-
-        /*if(move.x > 0f) //Direita
-        {
-            if(Input.mousePosition.x > Screen.width / 2.0f)
-            animator.SetFloat("Forward", 1f);
-            else if(Input.mousePosition.x < Screen.width / 2.0f)
-            animator.SetFloat("Forward", -1f);
-        }
-        else if(move.x < 0f) //Esquerda
-        {   
-            if(Input.mousePosition.x < Screen.width / 2.0f)
-            animator.SetFloat("Forward", 1f);
-            else if(Input.mousePosition.x > Screen.width / 2.0f)
-            animator.SetFloat("Forward", -1f);      
-
-        }
-        else if(move.y > 0f) //Cima
-        {
-            if(Input.mousePosition.y < Screen.height / 2.0f)
-            animator.SetFloat("Forward", -1f);
-            else
-            animator.SetFloat("Forward", 1f);
-        }
-        else if(move.y < 0f) // Baixo
-        {
-            if(Input.mousePosition.y < Screen.height / 2.0f)
-            animator.SetFloat("Forward", 1f);
-            else
-            animator.SetFloat("Forward", -1f);
-        }*/
     }
 
     void PlayerAim()
     {
-        Vector3 positionToLookAt;
-        if(usingMouse)
+        Vector3 positionToLookAt = Vector3.zero;
+        switch (BasicAttack.isAttacking)
         {
-            aim = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-            float cameraDistance = Camera.main.transform.parent.position.y - transform.position.y;
-            Vector3 position = GameObject.FindGameObjectWithTag("MouseCamera").GetComponent<Camera>().ScreenToWorldPoint(new Vector3(aim.x, aim.y, cameraDistance));
-            positionToLookAt = new Vector3(position.x, transform.position.y, position.z);
-            mManager.Rotate(attackPosition.transform, positionToLookAt);
-            //Cursor.visible = false;
-        }
-        else
-        {
-            positionToLookAt = new Vector3(aim.x + transform.position.x, transform.position.y, aim.y + transform.position.y);
-            mManager.Rotate(attackPosition.transform, positionToLookAt);
+            case true:
+                if(usingMouse)
+                {
+                    aim = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+                    float cameraDistance = Camera.main.transform.parent.position.y - transform.position.y;
+                    Vector3 position = GameObject.FindGameObjectWithTag("MouseCamera").GetComponent<Camera>().ScreenToWorldPoint(new Vector3(aim.x, aim.y, cameraDistance));
+                    positionToLookAt = new Vector3(position.x, attackPosition.transform.position.y, position.z);
+                    mManager.Rotate(transform, positionToLookAt);
+                    //Cursor.visible = false;
+                }
+                else
+                {
+                    positionToLookAt = new Vector3(aim.x + transform.position.x, attackPosition.transform.position.y, aim.y + transform.position.z);
+                    mManager.Rotate(transform, positionToLookAt);
+                }
+                break;
+            default:
+                if(usingMouse)
+                {
+                    aim = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+                    float cameraDistance = Camera.main.transform.parent.position.y - transform.position.y;
+                    Vector3 position = GameObject.FindGameObjectWithTag("MouseCamera").GetComponent<Camera>().ScreenToWorldPoint(new Vector3(aim.x, aim.y, cameraDistance));
+                    positionToLookAt = new Vector3(position.x, attackPosition.transform.position.y, position.z);
+                    mManager.Rotate(attackPosition.transform, positionToLookAt);
+                    //Cursor.visible = false;
+                }
+                else
+                {
+                    positionToLookAt = new Vector3(aim.x + transform.position.x, attackPosition.transform.position.y, aim.y + transform.position.z);
+                    mManager.Rotate(attackPosition.transform, positionToLookAt);
+                }
+                break;
         }
     }
 
@@ -141,11 +133,13 @@ public class PlayerInputManager : MonoBehaviour
         playerControls.Gameplay.Move.performed += context => move = context.ReadValue<Vector2>();
         playerControls.Gameplay.Move.canceled += context => move = Vector2.zero;
 
-
         playerControls.Gameplay.Aim.performed += context => aim = context.ReadValue<Vector2>();
-        playerControls.Gameplay.Aim.canceled += context => aim = Vector2.zero;
 
-        //playerControls.Gameplay.Attack.performed += context => 
+        playerControls.Gameplay.Attack.performed += context => attackButtonPressed = true;
+        playerControls.Gameplay.Attack.canceled += context => attackButtonPressed = false;
+
+        playerControls.Gameplay.UsePotion.performed += context => usePotion = true;
+        playerControls.Gameplay.UsePotion.canceled += context => usePotion = false;
     }
     void FixedUpdate()
     {
