@@ -57,6 +57,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""UsePotion"",
+                    ""type"": ""Button"",
+                    ""id"": ""c61312e9-8300-4881-9f36-2d5d2c2ebc70"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -202,6 +210,28 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""094c9315-40ea-443a-9836-97e0ce728905"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""UsePotion"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""10f3b92c-e16d-4d32-ac4f-c4a0a33d1e45"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""UsePotion"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -243,6 +273,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Aim = m_Gameplay.FindAction("Aim", throwIfNotFound: true);
         m_Gameplay_Run = m_Gameplay.FindAction("Run", throwIfNotFound: true);
         m_Gameplay_Attack = m_Gameplay.FindAction("Attack", throwIfNotFound: true);
+        m_Gameplay_UsePotion = m_Gameplay.FindAction("UsePotion", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -297,6 +328,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Aim;
     private readonly InputAction m_Gameplay_Run;
     private readonly InputAction m_Gameplay_Attack;
+    private readonly InputAction m_Gameplay_UsePotion;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -306,6 +338,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Aim => m_Wrapper.m_Gameplay_Aim;
         public InputAction @Run => m_Wrapper.m_Gameplay_Run;
         public InputAction @Attack => m_Wrapper.m_Gameplay_Attack;
+        public InputAction @UsePotion => m_Wrapper.m_Gameplay_UsePotion;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -330,6 +363,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Attack.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
                 @Attack.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
+                @UsePotion.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUsePotion;
+                @UsePotion.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUsePotion;
+                @UsePotion.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUsePotion;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -349,6 +385,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
+                @UsePotion.started += instance.OnUsePotion;
+                @UsePotion.performed += instance.OnUsePotion;
+                @UsePotion.canceled += instance.OnUsePotion;
             }
         }
     }
@@ -378,5 +417,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnAim(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnUsePotion(InputAction.CallbackContext context);
     }
 }
