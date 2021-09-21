@@ -9,6 +9,7 @@ public class BossSkills : MonoBehaviour
     private bool isHealing = false;
     public SphereCollider rightHand, LeftHand;
     public static bool titanAttacking = false;
+    public AudioSource bossHealing;
 
     void Start()
     {
@@ -29,6 +30,7 @@ public class BossSkills : MonoBehaviour
             bossStats.bossHealth += 100;
             isHealing = true;
             bossStats.ChangeHealthBar();
+            bossHealing.Play();
         }
 
         StartCoroutine(BossDamageCooldown());
