@@ -96,7 +96,7 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            agent.speed = 1.5f;
+            agent.speed = 3f;
         }
     }
 

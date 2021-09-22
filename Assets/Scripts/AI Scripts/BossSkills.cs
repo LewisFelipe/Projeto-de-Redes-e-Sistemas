@@ -9,7 +9,7 @@ public class BossSkills : MonoBehaviour
     private bool isHealing = false;
     public SphereCollider rightHand, LeftHand;
     public static bool titanAttacking = false;
-    public AudioSource bossHealing;
+    public AudioSource bossHealing, screamSfx, breathingSfx;
 
     void Start()
     {
@@ -31,7 +31,22 @@ public class BossSkills : MonoBehaviour
             isHealing = true;
             bossStats.ChangeHealthBar();
             bossHealing.Play();
+            breathingSfx.Pause();
         }
+        else
+        {
+           breathingSfx.UnPause();
+        }
+
+        if(animator.GetCurrentAnimatorStateInfo(0).IsTag("ScreamBoss"))
+        {
+            screamSfx.Play();
+            breathingSfx.Pause();
+        }
+        else
+        {
+           breathingSfx.UnPause();
+        }        
 
         StartCoroutine(BossDamageCooldown());
               
