@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    private float enemyHealth = 100f;
+    public float enemyHealth = 100f;
     EnemyAI enemyAI;
     WeaponID weaponID;
-    bool takedDamage = false;
-    bool isDead = false;
-    bool isTriggered;
+    private bool takedDamage = false;
+    private bool isDead = false;
+    private bool isTriggered;
     public GameObject lunarStoneDrop;
     public GameObject dropArea;
 

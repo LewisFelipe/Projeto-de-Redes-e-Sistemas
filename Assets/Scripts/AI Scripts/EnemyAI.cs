@@ -15,6 +15,7 @@ public class EnemyAI : MonoBehaviour
     public int damage = 10;
     private bool isTriggered;
     [HideInInspector] public bool isTakingDamage;
+    private int atkIndex;
 
     void Start()
     {
@@ -42,7 +43,9 @@ public class EnemyAI : MonoBehaviour
             {
                 if(!isTriggered && !isDead)
                 {
+                    atkIndex = Random.Range(0, 3);
                     //agent.updatePosition = false;
+                    anim.SetInteger("atkIndex", atkIndex);
                     anim.SetBool("isWalking", false);
                     anim.SetBool("isAttacking", true);
                     if(anim.GetCurrentAnimatorStateInfo(0).IsTag("EnemyAttack"))
