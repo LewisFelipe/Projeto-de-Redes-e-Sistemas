@@ -3818,6 +3818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resolutionsDropdown: {fileID: 607893059}
   optionsPanel: {fileID: 1703242667}
+  canvas: {fileID: 1313241641}
   muteMusic: {fileID: 1652253589}
   muteSound: {fileID: 1674173947}
   musicOn: {fileID: 21300000, guid: b6a035c3f3b782a47b98c113fad94f51, type: 3}

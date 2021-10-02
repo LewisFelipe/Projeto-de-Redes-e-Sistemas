@@ -9,7 +9,7 @@ public class MenuManager : MonoBehaviour
     //Ainda falta salvar com player prefs
     Resolution[] resolutions;
     public Dropdown resolutionsDropdown;
-    public GameObject optionsPanel;
+    public GameObject optionsPanel, canvas; //The gameObject canvas is a ductTape solution
     LTRect opTionsPanelRectTransform = new LTRect();
     public Image muteMusic, muteSound;
     public Sprite musicOn, musicOff, soundOn, soundOff;
@@ -40,12 +40,12 @@ public class MenuManager : MonoBehaviour
     public void OptionsButton()
     {
         //optionsPanel.SetActive(!optionsPanel.activeSelf);
-        LeanTween.move(optionsPanel, new Vector2(Screen.currentResolution.width / 2, Screen.currentResolution.height / 2), 0.5f);
+        LeanTween.move(optionsPanel, new Vector2(canvas.transform.position.x, canvas.transform.position.y), 0.5f);
     }
 
     public void OptionsButtonExit()
     {
-        LeanTween.move(optionsPanel, new Vector2(Screen.currentResolution.width / 2, -Screen.currentResolution.height), 0.5f);
+        LeanTween.move(optionsPanel, new Vector2(canvas.transform.position.x, -2 * canvas.transform.position.y), 0.5f);
     }
     
     public void SetResolution(int resolutionIndex)
