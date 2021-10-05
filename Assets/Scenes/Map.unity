@@ -2106,7 +2106,7 @@ Terrain:
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 70
+  m_DetailObjectDistance: 60
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
@@ -3886,7 +3886,7 @@ MonoBehaviour:
   shouldLookAtPlayer: 0
   smoothSpeed: 0.32
   velocity: {x: 0, y: 0}
-  offset: {x: 2.7, y: 37, z: -32}
+  offset: {x: 1.8, y: 22.3, z: -30}
 --- !u!4 &514804837
 Transform:
   m_ObjectHideFlags: 0
@@ -3894,14 +3894,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514804835}
-  m_LocalRotation: {x: -0.0017453635, y: -0.0054104687, z: -0.000009443387, w: 0.99998385}
-  m_LocalPosition: {x: 2.699921, y: 37, z: -32}
+  m_LocalRotation: {x: -0.082670875, y: -0.05736627, z: -0.004766768, w: 0.99491304}
+  m_LocalPosition: {x: 1.8, y: 21.5, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 267201692}
   m_Father: {fileID: 2029188062}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: -0.2, y: -0.62, z: 0}
+  m_LocalEulerAnglesHint: {x: -9.5, y: -6.6, z: 0}
 --- !u!1 &524827815
 GameObject:
   m_ObjectHideFlags: 0
@@ -9191,7 +9191,7 @@ RectTransform:
   - {fileID: 118635924}
   - {fileID: 294771873}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -9676,7 +9676,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1553376148
 GameObject:
@@ -10467,7 +10467,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 249.145, y: 39.918, z: 0}
 --- !u!1 &1706598908
 GameObject:
@@ -13130,7 +13130,7 @@ Transform:
   - {fileID: 377520578}
   - {fileID: 226539600}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2036905528
 PrefabInstance:
