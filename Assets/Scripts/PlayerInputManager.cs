@@ -19,6 +19,7 @@ public class PlayerInputManager : MonoBehaviour
     public float rotationSpeed;
     public float fallSpeed;
     private Animator animator;
+    public static int pause = 0, pauseChanged = 0;
 
     void PlayerWalkingAnimation()
     {
@@ -91,9 +92,12 @@ public class PlayerInputManager : MonoBehaviour
         }
     }
 
-    public void InGamePause()
+    public void InGamePauseSystem()
     {
-        
+        if (pauseChanged != pause)
+        {
+            Time.timeScale = 0f;
+        }
     }
 
     void OnCollisionStay(Collision other)
@@ -141,11 +145,23 @@ public class PlayerInputManager : MonoBehaviour
 
         playerControls.Gameplay.UsePotion.performed += context => usePotion = true;
         playerControls.Gameplay.UsePotion.canceled += context => usePotion = false;
+
+        playerControls.Gameplay.Pause.performed += context => pause = ~pause;
     }
     void FixedUpdate()
     {
-        PlayerMove();
-
-        PlayerAim();
+        switch (pause)
+        {
+            case -1:
+                break;
+            default:
+                PlayerMove();
+                PlayerAim();
+                break;
+        }
+    }
+    void Update()
+    {
+        InGamePauseSystem();
     }
 }
