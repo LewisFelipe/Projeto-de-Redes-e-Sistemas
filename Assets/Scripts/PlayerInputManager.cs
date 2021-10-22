@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
@@ -16,6 +16,7 @@ public class PlayerInputManager : MonoBehaviour
     public int sprint;
     public Vector2 aim;
     public float speed;
+    public float rotationSpeed;
     public float fallSpeed;
     private Animator animator;
 
@@ -46,13 +47,13 @@ public class PlayerInputManager : MonoBehaviour
                     float cameraDistance = Camera.main.transform.parent.position.y - transform.position.y;
                     Vector3 position = GameObject.FindGameObjectWithTag("MouseCamera").GetComponent<Camera>().ScreenToWorldPoint(new Vector3(aim.x, aim.y, cameraDistance));
                     positionToLookAt = new Vector3(position.x, attackPosition.transform.position.y, position.z);
-                    mManager.Rotate(transform, positionToLookAt);
+                    mManager.Rotate(transform, positionToLookAt, Vector3.up);
                     //Cursor.visible = false;
                 }
                 else
                 {
                     positionToLookAt = new Vector3(aim.x + transform.position.x, attackPosition.transform.position.y, aim.y + transform.position.z);
-                    mManager.Rotate(transform, positionToLookAt);
+                    mManager.Rotate(transform, positionToLookAt, Vector3.up);
                 }
                 break;
             default:
@@ -62,13 +63,13 @@ public class PlayerInputManager : MonoBehaviour
                     float cameraDistance = Camera.main.transform.parent.position.y - transform.position.y;
                     Vector3 position = GameObject.FindGameObjectWithTag("MouseCamera").GetComponent<Camera>().ScreenToWorldPoint(new Vector3(aim.x, aim.y, cameraDistance));
                     positionToLookAt = new Vector3(position.x, attackPosition.transform.position.y, position.z);
-                    mManager.Rotate(attackPosition.transform, positionToLookAt);
+                    mManager.Rotate(attackPosition.transform, positionToLookAt, Vector3.up);
                     //Cursor.visible = false;
                 }
                 else
                 {
                     positionToLookAt = new Vector3(aim.x + transform.position.x, attackPosition.transform.position.y, aim.y + transform.position.z);
-                    mManager.Rotate(attackPosition.transform, positionToLookAt);
+                    mManager.Rotate(attackPosition.transform, positionToLookAt, Vector3.up);
                 }
                 break;
         }
@@ -76,7 +77,7 @@ public class PlayerInputManager : MonoBehaviour
 
     void PlayerMove()
     {
-        mManager.Rotate(transform, new Vector3(move.x + transform.position.x ,transform.position.y, move.y + transform.position.z));
+        mManager.SmoothRotate(transform, new Vector3(move.x, 0, move.y), Vector3.up, rotationSpeed);
 
         if(isGrounded)
         {
