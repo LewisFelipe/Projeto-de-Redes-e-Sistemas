@@ -30,9 +30,9 @@ public class EnemyAI : MonoBehaviour
     {
         float distance = Vector3.Distance(transform.position, target.position);
 
-        if(distance <= 10)
+        if(distance <= 20)
         {
-            if(distance > 2 && isDead == false)
+            if(distance > 8 && isDead == false)
             {
                 //agent.updatePosition = true;
                 agent.SetDestination(target.position);
