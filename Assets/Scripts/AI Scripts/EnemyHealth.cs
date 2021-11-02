@@ -68,7 +68,7 @@ public class EnemyHealth : MonoBehaviour
         Vector3 pos = new Vector3(dropArea.transform.position.x - 1, dropArea.transform.position.y + 1f, dropArea.transform.position.z);
         GameObject drop = Instantiate(lunarStoneDrop, pos, lunarStoneDrop.transform.rotation);
         gameObject.GetComponent<NavMeshAgent>().enabled = false;
-        drop.LeanMoveY(1f, .5f);
+        //drop.LeanMoveY(1f, .5f);
         drop.SetActive(false);
         StartCoroutine(showDrop(drop));
         Destroy(gameObject, 1.5f);
