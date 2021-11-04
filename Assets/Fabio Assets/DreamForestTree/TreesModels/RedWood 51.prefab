@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 23466419510729776}
   - component: {fileID: 670164728706799685}
   m_Layer: 0
-  m_Name: RedWood 5
+  m_Name: RedWood 51
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,7 +171,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: cc4bcc87e3fd5d1458291174eb2efa09, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2e590fb718397d345898d3466a34f388, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -187,7 +187,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: cc4bcc87e3fd5d1458291174eb2efa09, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2e590fb718397d345898d3466a34f388, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
