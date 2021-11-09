@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 61950568996384742910bc54248a8b2c,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2606,7 +2606,7 @@ PrefabInstance:
         type: 3}
       propertyPath: bossInterface
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1010173483}
     - target: {fileID: 3841609842228515012, guid: cad9e2d5fedd1aa4ea3707b6227ff85d,
         type: 3}
       propertyPath: m_LocalScale.x

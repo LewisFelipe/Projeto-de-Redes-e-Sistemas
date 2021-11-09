@@ -34,7 +34,6 @@ public class EnemyAI : MonoBehaviour
         {
             if(distance > 8 && isDead == false)
             {
-                //agent.updatePosition = true;
                 agent.SetDestination(target.position);
                 anim.SetBool("isWalking", true);
                 anim.SetBool("isAttacking", false);
@@ -44,7 +43,6 @@ public class EnemyAI : MonoBehaviour
                 if(!isTriggered && !isDead)
                 {
                     atkIndex = Random.Range(0, 3);
-                    //agent.updatePosition = false;
                     anim.SetInteger("atkIndex", atkIndex);
                     anim.SetBool("isWalking", false);
                     anim.SetBool("isAttacking", true);
