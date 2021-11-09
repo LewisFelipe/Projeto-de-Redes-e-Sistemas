@@ -158,7 +158,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Optimized Bark Material
-  m_Shader: {fileID: 4800000, guid: 0ca6dca7396eb48e5849247ffd444914, type: 3}
+  m_Shader: {fileID: 4800000, guid: 8d2bb70cbf9db8d4da26e15b26e74248, type: 3}
   m_ShaderKeywords: _NORMALMAP
   m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
@@ -171,7 +171,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 1a3df453886534b47a4f53833e187bea, type: 3}
+        m_Texture: {fileID: 2800000, guid: d38d1a47ec1298549813aa83d382fda1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -199,7 +199,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 1a3df453886534b47a4f53833e187bea, type: 3}
+        m_Texture: {fileID: 2800000, guid: d38d1a47ec1298549813aa83d382fda1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
