@@ -10,7 +10,7 @@ public class BossHealth : MonoBehaviour
     private GameObject playerPos;
     private Animator animator;
     private int randomAtk;
-    private bool isDead;
+    private bool isDead = false;
     private bool isTriggered;
     private bool rangeCooldown;
 
@@ -69,6 +69,7 @@ public class BossHealth : MonoBehaviour
         {
             EnemyDead();
             isDead = true;
+            ScoreManager.score += 10;
         }
         else
         {

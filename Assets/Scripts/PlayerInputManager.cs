@@ -97,6 +97,7 @@ public class PlayerInputManager : MonoBehaviour
         if (pauseChanged != pause)
         {
             Time.timeScale = 0f;
+            pauseChanged = pause;
         }
     }
 
@@ -146,7 +147,7 @@ public class PlayerInputManager : MonoBehaviour
         playerControls.Gameplay.UsePotion.performed += context => usePotion = true;
         playerControls.Gameplay.UsePotion.canceled += context => usePotion = false;
 
-        playerControls.Gameplay.Pause.performed += context => pause = ~pause;
+        playerControls.Gameplay.Pause.canceled += context => pause = ~pause;
     }
     void FixedUpdate()
     {
