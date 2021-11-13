@@ -187,46 +187,46 @@ public class BasicAttack : MonoBehaviour
     {
         if(playerStats.attackButtonPressed && WeaponID.hammerEquipped == true && NpcDialogue.isShopping == false)
         {
-            isAttacking = true;
+            //isAttacking = true;
             playerStats.speed = 0f;
             yield return new WaitForSeconds(1f);
             weaponCollider.enabled = true;
             yield return new WaitForSeconds(.75f);
             weaponCollider.enabled = false;
-            isAttacking = false;
+           // isAttacking = false;
             playerStats.speed = defautSpeed;
         }
         else if(playerStats.attackButtonPressed && WeaponID.swordEquipped == true && NpcDialogue.isShopping == false)
         {
-            isAttacking = true;
+            //isAttacking = true;
             playerStats.speed = 0f;
             yield return new WaitForSeconds(.5f);
             weaponCollider.enabled = true;
             yield return new WaitForSeconds(.5f);
             weaponCollider.enabled = false;
-            isAttacking = false;
+            //isAttacking = false;
             playerStats.speed = defautSpeed;      
         }
         else if(playerStats.attackButtonPressed && WeaponID.spearEquipped == true && NpcDialogue.isShopping == false)
         {
-            isAttacking = true;
+            //isAttacking = true;
             playerStats.speed = 0f;
             yield return new WaitForSeconds(.2f);
             weaponCollider.enabled = true;
             yield return new WaitForSeconds(.8f);
             weaponCollider.enabled = false;
-            isAttacking = false;
+            //isAttacking = false;
             playerStats.speed = defautSpeed;       
         }
         else if(playerStats.attackButtonPressed && WeaponID.axeEquipped == true && NpcDialogue.isShopping == false)
         {
-            isAttacking = true;
+            //isAttacking = true;
             playerStats.speed = 0f;
             yield return new WaitForSeconds(.2f);
             weaponCollider.enabled = true;
             yield return new WaitForSeconds(1.15f);
             weaponCollider.enabled = false;
-            isAttacking = false;
+            //isAttacking = false;
             playerStats.speed = defautSpeed;
         }
     }

@@ -33,7 +33,7 @@ public class EnemyAI : MonoBehaviour
 
         if(distance <= 20)
         {
-            if(distance > 8 && isDead == false)
+            if(distance > 12 && isDead == false)
             {
                 //agent.updatePosition = true;
                 agent.SetDestination(target.position);

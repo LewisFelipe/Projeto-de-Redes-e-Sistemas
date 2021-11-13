@@ -13,10 +13,14 @@ public class EnemyHealth : MonoBehaviour
     private bool isTriggered;
     public GameObject lunarStoneDrop;
     public GameObject dropArea;
+    private GameObject player;
+    private Animator playerAnim;
 
     private void Start()
     {
         enemyAI = GetComponent<EnemyAI>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerAnim = player.GetComponent<Animator>();
     }
 
     public void DeductHealth(float deductHealth)
@@ -36,7 +40,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Weapon" && !isTriggered)
+        if(other.gameObject.tag == "Weapon" && !isTriggered && playerAnim.GetCurrentAnimatorStateInfo(0).IsTag("PlayerAttack"))
         {
             weaponID = GameObject.FindGameObjectWithTag("Weapon").GetComponent<WeaponID>();
             DeductHealth(weaponID.weaponDamage);
