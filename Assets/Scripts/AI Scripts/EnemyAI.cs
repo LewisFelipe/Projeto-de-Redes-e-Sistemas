@@ -16,6 +16,7 @@ public class EnemyAI : MonoBehaviour
     private bool isTriggered;
     [HideInInspector] public bool isTakingDamage;
     private int atkIndex;
+    public float agentSpeed;
 
     void Start()
     {
@@ -99,7 +100,7 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            agent.speed = 3f;
+            agent.speed = agentSpeed;
         }
     }
 

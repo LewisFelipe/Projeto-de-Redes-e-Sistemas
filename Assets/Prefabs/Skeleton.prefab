@@ -544,6 +544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   isTakingDamage: 0
+  agentSpeed: 3
 --- !u!114 &1403472009503839201
 MonoBehaviour:
   m_ObjectHideFlags: 0
