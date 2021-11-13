@@ -7,14 +7,16 @@ using UnityEngine;
 public class MenuManager : MonoBehaviour
 {   
     //Ainda falta salvar com player prefs
-    Resolution[] resolutions;
     public Dropdown resolutionsDropdown;
-    public GameObject optionsPanel, canvas; //The gameObject canvas is a ductTape solution
-    LTRect opTionsPanelRectTransform = new LTRect();
+    public GameObject optionsPanel, loginPanel;
+    public GameObject[] informations;
     public Image muteMusic, muteSound;
     public Sprite musicOn, musicOff, soundOn, soundOff;
     public Slider musicSlider, soundSlider;
     public AudioSource musicEmitter, soundEmitter;
+
+    Resolution[] resolutions;
+    LTRect optionsPanelRectTransform = new LTRect();
 
     private void StartResolutions()
     {
@@ -40,12 +42,12 @@ public class MenuManager : MonoBehaviour
     public void OptionsButton()
     {
         //optionsPanel.SetActive(!optionsPanel.activeSelf);
-        LeanTween.move(optionsPanel, new Vector2(canvas.transform.position.x, canvas.transform.position.y), 0.5f);
+        LeanTween.move(optionsPanel, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), 0.5f);
     }
 
     public void OptionsButtonExit()
     {
-        LeanTween.move(optionsPanel, new Vector2(canvas.transform.position.x, -2 * canvas.transform.position.y), 0.5f);
+        LeanTween.move(optionsPanel, new Vector2(gameObject.transform.position.x, -2 * gameObject.transform.position.y), 0.5f);
     }
     
     public void SetResolution(int resolutionIndex)
@@ -113,11 +115,40 @@ public class MenuManager : MonoBehaviour
         Application.Quit();
     }
 
+    IEnumerator InformationManager()
+    {
+        foreach (GameObject page in informations)
+        {
+            yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+            page.SetActive(true);
+            //AudioManager.Singleton.PlaySoundEffect(0);
+        }
+        foreach (GameObject page in informations)
+        {
+            page.SetActive(false);
+        }
+    }
+
+    public void InfoButton()
+    {
+        StartCoroutine("InformationManager");
+    }
+
+    public void LoginButtonExit()
+    {
+        LeanTween.move(loginPanel, new Vector2(gameObject.transform.position.x, 4 * gameObject.transform.position.y), 0.5f);
+    }
+
+    public void StartGame()
+    {
+        if(!Login.isLogged)
+        {
+            LeanTween.move(loginPanel, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), 0.5f);
+        }
+    }
+
     private void Start()
     {
         StartResolutions();
-
-        //opTionsPanelRectTransform = optionsPanel.GetComponent<RectTransform>();
-        //optionsPanel.SetActive(false);
     }
 }

@@ -72,6 +72,7 @@ public class EnemyAI : MonoBehaviour
     {
         isDead = true;
         anim.SetBool("isDead", true);
+        ScoreManager.score++;
     }
 
     IEnumerator StopWalkCooldown()
