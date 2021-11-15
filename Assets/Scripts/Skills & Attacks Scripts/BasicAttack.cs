@@ -41,7 +41,7 @@ public class BasicAttack : MonoBehaviour
             animator.SetBool("isWalking", false);
         }
 
-        if(!NpcDialogue.isShopping)
+        if(!NpcDialogue.isShopping && !InGameMenu.Paused)
         {
             BasicSword();
             BasicHammer();
@@ -51,17 +51,17 @@ public class BasicAttack : MonoBehaviour
             UseHealthPotion();
         }
 
-        if(Input.GetKeyDown(KeyCode.R))
+        /*if(Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+        }*/
 
         StartCoroutine(EnableCollider());
     }
 
     private void UseHealthPotion()
     {
-        if(NpcWizard.potionsCount > 0 && playerHealth.health < playerHealth.maxHealth && playerStats.usePotion)
+        if(NpcWizard.potionsCount > 0 && playerHealth.health < playerHealth.maxHealth && playerStats.usePotion && !InGameMenu.Paused)
         {
             playerHealth.health += 25;
             NpcWizard.potionsCount--;
@@ -77,7 +77,7 @@ public class BasicAttack : MonoBehaviour
         {
             animator.SetBool("isSword", true);
 
-            if(playerStats.attackButtonPressed && canAttack)
+            if(playerStats.attackButtonPressed && canAttack && !InGameMenu.Paused)
             {
                 animator.SetTrigger("Attacking");
                 int randomAtk = Random.Range(0, 3);
@@ -111,7 +111,7 @@ public class BasicAttack : MonoBehaviour
         {
             animator.SetBool("isHammer", true);
 
-            if(playerStats.attackButtonPressed && canAttack)
+            if(playerStats.attackButtonPressed && canAttack && !InGameMenu.Paused)
             {
                 animator.SetTrigger("Attacking");
                 playerStats.speed = 0;
@@ -133,7 +133,7 @@ public class BasicAttack : MonoBehaviour
         {
             animator.SetBool("isSpear", true);
 
-            if(playerStats.attackButtonPressed && canAttack)
+            if(playerStats.attackButtonPressed && canAttack && !InGameMenu.Paused)
             {
                 animator.SetTrigger("Attacking");
                 StartCoroutine(AttackCooldown());
@@ -151,7 +151,7 @@ public class BasicAttack : MonoBehaviour
         {
             animator.SetBool("isAxe", true);
 
-            if(playerStats.attackButtonPressed && canAttack)
+            if(playerStats.attackButtonPressed && canAttack && !InGameMenu.Paused)
             {
                 int randomAtk = Random.Range(0, 3);
                 animator.SetTrigger("Attacking");
@@ -171,7 +171,7 @@ public class BasicAttack : MonoBehaviour
         {
             animator.SetBool("isBow", true);
 
-            if(playerStats.attackButtonPressed && canAttack)
+            if(playerStats.attackButtonPressed && canAttack && !InGameMenu.Paused)
             {
                 animator.SetTrigger("Attacking");
                 StartCoroutine(AttackCooldown());
@@ -185,7 +185,7 @@ public class BasicAttack : MonoBehaviour
 
     private IEnumerator EnableCollider()
     {
-        if(playerStats.attackButtonPressed && WeaponID.hammerEquipped == true && NpcDialogue.isShopping == false)
+        if(playerStats.attackButtonPressed && WeaponID.hammerEquipped == true && NpcDialogue.isShopping == false && !InGameMenu.Paused)
         {
             //isAttacking = true;
             playerStats.speed = 0f;
@@ -196,7 +196,7 @@ public class BasicAttack : MonoBehaviour
            // isAttacking = false;
             playerStats.speed = defautSpeed;
         }
-        else if(playerStats.attackButtonPressed && WeaponID.swordEquipped == true && NpcDialogue.isShopping == false)
+        else if(playerStats.attackButtonPressed && WeaponID.swordEquipped == true && NpcDialogue.isShopping == false && !InGameMenu.Paused)
         {
             //isAttacking = true;
             playerStats.speed = 0f;
@@ -207,7 +207,7 @@ public class BasicAttack : MonoBehaviour
             //isAttacking = false;
             playerStats.speed = defautSpeed;      
         }
-        else if(playerStats.attackButtonPressed && WeaponID.spearEquipped == true && NpcDialogue.isShopping == false)
+        else if(playerStats.attackButtonPressed && WeaponID.spearEquipped == true && NpcDialogue.isShopping == false && !InGameMenu.Paused)
         {
             //isAttacking = true;
             playerStats.speed = 0f;
@@ -218,7 +218,7 @@ public class BasicAttack : MonoBehaviour
             //isAttacking = false;
             playerStats.speed = defautSpeed;       
         }
-        else if(playerStats.attackButtonPressed && WeaponID.axeEquipped == true && NpcDialogue.isShopping == false)
+        else if(playerStats.attackButtonPressed && WeaponID.axeEquipped == true && NpcDialogue.isShopping == false && !InGameMenu.Paused)
         {
             //isAttacking = true;
             playerStats.speed = 0f;

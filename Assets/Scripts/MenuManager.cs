@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Realms;
 
 public class MenuManager : MonoBehaviour
 {   
@@ -15,6 +16,8 @@ public class MenuManager : MonoBehaviour
     public Sprite musicOn, musicOff, soundOn, soundOff;
     public Slider musicSlider, soundSlider;
     public AudioSource musicEmitter, soundEmitter;
+    public Text nick, password;
+    public static bool isLogged {get; private set;} = false;
 
     Resolution[] resolutions;
     LTRect optionsPanelRectTransform = new LTRect();
