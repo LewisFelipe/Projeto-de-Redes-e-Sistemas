@@ -78,13 +78,17 @@ public class PlayerInputManager : MonoBehaviour
 
     void PlayerMove()
     {
-        mManager.SmoothRotate(transform, new Vector3(move.x, 0, move.y), Vector3.up, rotationSpeed);
-
-        /*if(isGrounded)
-        {*/
+        if(!BasicAttack.isAttacking)
+        {
+            mManager.SmoothRotate(transform, new Vector3(move.x, 0, move.y), Vector3.up, rotationSpeed);
             mManager.Move(rb, new Vector3(move.x, rb.velocity.y, move.y), speed, 1 << sprint);
             PlayerWalkingAnimation();
-        /*}
+        }
+        /*if(isGrounded)
+        {
+            mManager.Move(rb, new Vector3(move.x, rb.velocity.y, move.y), speed, 1 << sprint);
+            PlayerWalkingAnimation();
+        }
         else
         {
             mManager.Move(rb, new Vector3((move.x/2), rb.velocity.y, (move.y/2)), speed, 1);

@@ -19,6 +19,8 @@ public class MenuManager : MonoBehaviour
     public Text nick, password;
     public static bool isLogged {get; private set;} = false;
 
+    Realm realm;
+    RankingModel rankingModel;
     Resolution[] resolutions;
     LTRect optionsPanelRectTransform = new LTRect();
 
@@ -145,10 +147,24 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        if(!Login.isLogged)
+        if(!isLogged)
         {
             LeanTween.move(loginPanel, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), 0.5f);
         }
+    }
+
+    public void Login()
+    {
+        /*if(password.text != "" && )
+        {
+
+        }
+        realm = Realm.GetInstance();
+        rankingModel = realm.Find<RankingModel>(nick.text);
+        if(rankingModel == null)
+        {
+            realm.Write(() => { rankingModel = realm.Add(new RankingModel(nick.text, password.text, -1, 0)); });
+        }*/
     }
 
     private void Start()

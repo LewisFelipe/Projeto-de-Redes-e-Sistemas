@@ -30,6 +30,7 @@ public class InGameMenu : MenuManager
     {
         //LeanTween.move(loginPanel, new Vector2(gameObject.transform.position.x, 4 * gameObject.transform.position.y), 0.5f);
         Time.timeScale = 1f;
+        PausedOptionsButtonExit();
         loginPanel.transform.position = gameObject.transform.position + new Vector3(0f, (4 * gameObject.transform.position.y), 0f);
         Paused = false;
     }
