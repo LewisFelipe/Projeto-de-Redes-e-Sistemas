@@ -5,12 +5,8 @@ using UnityEngine;
 
 public class PlayerInputManager : MonoBehaviour
 {
-    MovementManager mManager = new MovementManager();
-    PlayerControls playerControls;
-    Rigidbody rb;
     public GameObject attackPosition;
     public bool usingMouse = true;
-    //[HideInInspector]
     public bool isGrounded = false, attackButtonPressed = false, usePotion = false;
     public Vector2 move;
     public int sprint;
@@ -18,8 +14,12 @@ public class PlayerInputManager : MonoBehaviour
     public float speed;
     public float rotationSpeed;
     public float fallSpeed;
-    private Animator animator;
-    public static int pause = 0, pauseChanged = 0;
+    public static int pauseChanged = 0;
+    
+    MovementManager mManager = new MovementManager();
+    PlayerControls playerControls;
+    Rigidbody rb;
+    Animator animator;
 
     void PlayerWalkingAnimation()
     {
@@ -92,15 +92,6 @@ public class PlayerInputManager : MonoBehaviour
         }
     }
 
-    public void InGamePauseSystem()
-    {
-        if (pauseChanged != pause)
-        {
-            Time.timeScale = 0f;
-            pauseChanged = pause;
-        }
-    }
-
     void OnCollisionStay(Collision other)
     {
         if(other.gameObject.tag == "Ground")
@@ -147,22 +138,19 @@ public class PlayerInputManager : MonoBehaviour
         playerControls.Gameplay.UsePotion.performed += context => usePotion = true;
         playerControls.Gameplay.UsePotion.canceled += context => usePotion = false;
 
-        playerControls.Gameplay.Pause.canceled += context => pause = ~pause;
+        playerControls.Gameplay.Pause.canceled += context => pauseChanged = ~pauseChanged;
     }
+
     void FixedUpdate()
     {
-        switch (pause)
+        switch (InGameMenu.Paused)
         {
-            case -1:
+            case true:
                 break;
             default:
                 PlayerMove();
                 PlayerAim();
                 break;
         }
-    }
-    void Update()
-    {
-        InGamePauseSystem();
     }
 }
