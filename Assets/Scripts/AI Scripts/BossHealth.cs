@@ -69,14 +69,13 @@ public class BossHealth : MonoBehaviour
         {
             EnemyDead();
             isDead = true;
-            ScoreManager.score += 10;
         }
         else
         {
             isDead = false;
         }
-    }   
-     
+    }
+
     private IEnumerator AnimationCooldown()
     {
         while(rangeCooldown == true)
@@ -90,7 +89,7 @@ public class BossHealth : MonoBehaviour
         {
             animator.SetBool("isAttacking", true);
             yield return new WaitForSeconds(6f);
-            rangeCooldown = true;            
+            rangeCooldown = true;
         }
     }
 
@@ -112,10 +111,11 @@ public class BossHealth : MonoBehaviour
         isDead = true;
         animator.SetBool("isDead", true);
         bossInterface.SetActive(false);
-    }    
+    }
 
     private void EnemyDead()
     {
+        ScoreManager.score += 10;
         EnemyDeathAnim();
         //Vector3 pos = new Vector3(dropArea.transform.position.x - 1, dropArea.transform.position.y + 1f, dropArea.transform.position.z);
         //GameObject drop = Instantiate(lunarStoneDrop, pos, lunarStoneDrop.transform.rotation);

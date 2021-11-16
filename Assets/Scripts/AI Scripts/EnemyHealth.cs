@@ -71,6 +71,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void EnemyDead()
     {
+        ScoreManager.score++;
         enemyAI.EnemyDeathAnim();
         Vector3 pos = new Vector3(dropArea.transform.position.x - 1, dropArea.transform.position.y + 1f, dropArea.transform.position.z);
         GameObject drop = Instantiate(lunarStoneDrop, pos, lunarStoneDrop.transform.rotation);

@@ -12,14 +12,17 @@ public class TutorialUI : MonoBehaviour
     public TMP_Text tutoText;
     public Sprite[] tutoSprites;
     public Image tutoImage;
-    private int textNumber;
     public Texture2D gameCursor;
-   
+
+    private int textNumber;
+    private ScoreManager scoreManager;
+
     void Start()
     {
         tutorialTab.SetActive(true);
         NpcDialogue.isShopping = true;
         Cursor.SetCursor(gameCursor, Vector2.zero, CursorMode.ForceSoftware);
+        scoreManager = FindObjectOfType<ScoreManager>();
     }
 
     void Update()
@@ -68,19 +71,21 @@ public class TutorialUI : MonoBehaviour
         }
     }
 
-    public void OpenTutorial()
-    {
-        tutorialTab.SetActive(true);
-        NpcDialogue.isShopping = true;
-    }
-
     public void CloseTutorial()
     {
         tutorialTab.SetActive(false);
         NpcDialogue.isShopping = false;
     }
 
-    public void BackMenu()
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        scoreManager.changeHighestScore();
+        ScoreManager.runTime = 0;
+        ScoreManager.score = 0;
+    }
+
+    public void BackToMenu()
     {
         SceneManager.LoadScene("Menu");
     }

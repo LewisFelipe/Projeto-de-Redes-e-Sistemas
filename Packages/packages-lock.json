@@ -24,7 +24,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.vscode": {
-      "version": "1.2.3",
+      "version": "1.2.4",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -125,12 +125,6 @@
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
       }
-    },
-    "io.realm.unity": {
-      "version": "file:../Assets/MongoDB Realm/io.realm.unity-10.7.0.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {}
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

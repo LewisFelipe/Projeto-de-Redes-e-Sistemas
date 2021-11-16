@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class InGameMenu : MenuManager
 {
     public static bool Paused {get; private set;} = false;
+    public Text score;
+    public Text nick;
 
     public void PausedOptionsButton()
     {
@@ -44,6 +46,11 @@ public class InGameMenu : MenuManager
         SceneManager.LoadScene("Menu");
     }
 
+    private void Start()
+    {
+        nick.text = Login.nick;
+    }
+
     private void Update()
     {
         switch(PlayerInputManager.pauseChanged)
@@ -62,6 +69,7 @@ public class InGameMenu : MenuManager
                 break;
 
             default:
+                score.text = ScoreManager.score.ToString();
                 break;
         }
     }

@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Realms;
 
 public class MenuManager : MonoBehaviour
-{   
+{
     //Ainda falta salvar com player prefs
     public Dropdown resolutionsDropdown;
     public GameObject optionsPanel, loginPanel;
@@ -16,11 +15,7 @@ public class MenuManager : MonoBehaviour
     public Sprite musicOn, musicOff, soundOn, soundOff;
     public Slider musicSlider, soundSlider;
     public AudioSource musicEmitter, soundEmitter;
-    public Text nick, password;
-    public static bool isLogged {get; private set;} = false;
 
-    Realm realm;
-    RankingModel rankingModel;
     Resolution[] resolutions;
     LTRect optionsPanelRectTransform = new LTRect();
 
@@ -55,10 +50,10 @@ public class MenuManager : MonoBehaviour
     {
         LeanTween.move(optionsPanel, new Vector2(gameObject.transform.position.x, -2 * gameObject.transform.position.y), 0.5f);
     }
-    
+
     public void SetResolution(int resolutionIndex)
     {
-        Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, Screen.fullScreen); 
+        Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, Screen.fullScreen);
     }
 
     public void SetFullScreen(bool isOn)
@@ -147,24 +142,14 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        if(!isLogged)
+        if(!Login.isLogged)
         {
             LeanTween.move(loginPanel, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), 0.5f);
         }
-    }
-
-    public void Login()
-    {
-        /*if(password.text != "" && )
+        else
         {
-
+            SceneManager.LoadScene(1);
         }
-        realm = Realm.GetInstance();
-        rankingModel = realm.Find<RankingModel>(nick.text);
-        if(rankingModel == null)
-        {
-            realm.Write(() => { rankingModel = realm.Add(new RankingModel(nick.text, password.text, -1, 0)); });
-        }*/
     }
 
     private void Start()
