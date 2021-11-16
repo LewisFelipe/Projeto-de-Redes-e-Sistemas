@@ -15,7 +15,6 @@ public class PlayerInputManager : MonoBehaviour
     public float rotationSpeed;
     public float fallSpeed;
     public static int pauseChanged = 0;
-    
     MovementManager mManager = new MovementManager();
     PlayerControls playerControls;
     Rigidbody rb;

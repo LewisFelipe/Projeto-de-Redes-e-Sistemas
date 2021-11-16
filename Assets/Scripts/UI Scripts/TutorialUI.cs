@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class TutorialUI : MonoBehaviour
 {
@@ -24,6 +25,23 @@ public class TutorialUI : MonoBehaviour
     void Update()
     {
         UpdateDialogue();
+
+        if(Input.GetKeyDown(KeyCode.LeftArrow) && tutorialTab.activeSelf)
+        {
+            textNumber--;
+            if(textNumber < 0)
+            {
+                textNumber = 0;
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.RightArrow) && tutorialTab.activeSelf)
+        {
+            textNumber++;
+            if(textNumber >= tutoString.Length)
+            {
+                textNumber = 0;
+            }
+        }
     }
 
     private void UpdateDialogue()
@@ -60,5 +78,10 @@ public class TutorialUI : MonoBehaviour
     {
         tutorialTab.SetActive(false);
         NpcDialogue.isShopping = false;
+    }
+
+    public void BackMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }

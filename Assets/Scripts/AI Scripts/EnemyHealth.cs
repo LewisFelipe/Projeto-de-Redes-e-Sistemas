@@ -15,6 +15,7 @@ public class EnemyHealth : MonoBehaviour
     public GameObject dropArea;
     private GameObject player;
     private Animator playerAnim;
+    public AudioSource impact;
 
     private void Start()
     {
@@ -49,6 +50,8 @@ public class EnemyHealth : MonoBehaviour
             {
                 StartCoroutine(TakedDamage());
             }
+
+            impact.Play();
         }
     }
 

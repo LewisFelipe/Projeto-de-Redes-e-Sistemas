@@ -12,10 +12,12 @@ public class PlayerHealth : MonoBehaviour
     public Image healthBar;
     public static bool changeMaxLife;
     public TMP_Text maxLifeText;
+    public GameObject deathPanel;
 
     private void Start()
     {
         health = maxHealth;
+        deathPanel.SetActive(false);
     }
 
     private void Update()
@@ -31,6 +33,8 @@ public class PlayerHealth : MonoBehaviour
         }
 
         maxLifeText.text = maxHealth.ToString();
+
+        PlayerDeath();
     }
 
     public void ChangeHealthBar()
@@ -39,6 +43,14 @@ public class PlayerHealth : MonoBehaviour
         if(health >= maxHealth)
         {
             health = maxHealth;
+        }
+    }
+
+    private void PlayerDeath()
+    {
+        if(health <= 0)
+        {
+            deathPanel.SetActive(true);
         }
     }
 }

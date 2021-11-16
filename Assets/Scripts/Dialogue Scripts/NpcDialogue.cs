@@ -154,7 +154,7 @@ public class NpcDialogue : MonoBehaviour
             }  
 
             GenerateRandomInt();
-            if(randomIndex <= 90) //Itens normais
+            if(randomIndex <= 100) //Itens normais  //Porcentagens foram alteradas para que só haja possibilidade de itens normais
             {   
                 int randomNumber = Random.Range(0, basicItensList.Length);
                 basicItensList[randomNumber].SetActive(true);
@@ -163,11 +163,11 @@ public class NpcDialogue : MonoBehaviour
                     basicItensList[randomNumber].SetActive(true);
                 }
             }
-            else if(randomIndex <= 99 && randomIndex > 90) //Itens bons
+            else if(randomIndex <= 101 && randomIndex > 110) //Itens bons //DESATIVADO NA VERSÃO FINAL DO JOGO
             {
                 Debug.Log("Item bom");
             }
-            else if(randomIndex == 100) //Itens lendários
+            else if(randomIndex == 111) //Itens lendários //DESATIVADO NA VERSÃO FINAL DO JOGO
             {
                     Debug.Log("Item lendário");
             }
