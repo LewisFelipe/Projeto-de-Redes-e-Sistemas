@@ -16,6 +16,7 @@ public class Dialogue : MonoBehaviour
     public TMP_Text cinematicTitle;
     public string cinematicTitleText;
     public GameObject barsCanvas;
+    public AudioSource dialogueBoxSfx, nextTextSfx;
     
     private void Start()
     {
@@ -31,6 +32,7 @@ public class Dialogue : MonoBehaviour
             transform.localScale = Vector3.one;
             LeanTween.scale(dialoguePanel, Vector3.one * 1, tweenTime).setEaseOutExpo();
             dialoguePanel.transform.LeanMoveLocalY(-400f, 0.5f).setEaseOutExpo().delay = 0.1f;
+            dialogueBoxSfx.Play();
         }
     }
 
@@ -62,6 +64,7 @@ public class Dialogue : MonoBehaviour
     public void NextText()
     {
         textNumber++;
+        nextTextSfx.Play();
         if(textNumber >= dialogueString.Length)
         {
             StartCoroutine(OpenCinematicTitle());

@@ -16,6 +16,7 @@ public class TutorialUI : MonoBehaviour
 
     private int textNumber;
     private ScoreManager scoreManager;
+    public AudioSource exitSfx, nextSfx, previousSfx;
 
     void Start()
     {
@@ -56,6 +57,7 @@ public class TutorialUI : MonoBehaviour
     public void NextText()
     {
         textNumber++;
+        nextSfx.Play();
         if(textNumber >= tutoString.Length)
         {
             textNumber = 0;
@@ -65,6 +67,7 @@ public class TutorialUI : MonoBehaviour
     public void PreviousText()
     {
         textNumber--;
+        previousSfx.Play();
         if(textNumber < 0)
         {
             textNumber = 0;
@@ -73,8 +76,15 @@ public class TutorialUI : MonoBehaviour
 
     public void CloseTutorial()
     {
+        exitSfx.Play();
         tutorialTab.SetActive(false);
         NpcDialogue.isShopping = false;
+    }
+
+    public void OpenTutorial()
+    {
+        tutorialTab.SetActive(true);
+        NpcDialogue.isShopping = true;        
     }
 
     public void RestartGame()

@@ -17,6 +17,7 @@ public class EnemyAI : MonoBehaviour
     [HideInInspector] public bool isTakingDamage;
     private int atkIndex;
     public float agentSpeed;
+    public AudioSource hit;
 
     void Start()
     {
@@ -89,6 +90,7 @@ public class EnemyAI : MonoBehaviour
         if(!isTakingDamage && !isDead)
         playerHealth.health -= damage;
         playerHealth.ChangeHealthBar();
+        hit.Play();
         yield return new WaitForSeconds(1f);
         isTriggered = false;
     }

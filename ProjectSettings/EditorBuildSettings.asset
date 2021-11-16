@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Map_Lucas.unity
-    guid: 686bb6e40ec368242adb957e8e79962c
-  - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 31938c66a46d85e459f90a44fca38091
+  - enabled: 1
+    path: Assets/Scenes/Map_Lucas.unity
+    guid: 686bb6e40ec368242adb957e8e79962c
   m_configObjects: {}
