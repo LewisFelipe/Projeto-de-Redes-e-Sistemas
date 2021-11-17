@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerSounds : MonoBehaviour
 {
-    public AudioSource footsteep, hit;
+    public AudioSource footsteep;
     private Animator anim;
     private KeyCode stepUp, stepDown, stepLeft, stepRight;
 
@@ -20,7 +20,6 @@ public class PlayerSounds : MonoBehaviour
     void Update()
     {
         Footsteep();
-        HitSound();
     }
 
     private void Footsteep()
@@ -32,14 +31,6 @@ public class PlayerSounds : MonoBehaviour
         else if(Input.GetKeyUp(stepUp) || Input.GetKeyUp(stepDown) || Input.GetKeyUp(stepLeft) || Input.GetKeyUp(stepRight))
         {
             footsteep.Stop();
-        }
-    }
-
-    private void HitSound()
-    {
-        if(Input.GetMouseButtonDown(0) && NpcDialogue.isShopping == false)
-        {
-            hit.PlayDelayed(.3f);
         }
     }
 }
