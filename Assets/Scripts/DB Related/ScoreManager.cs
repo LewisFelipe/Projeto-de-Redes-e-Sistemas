@@ -22,6 +22,7 @@ public class ScoreManager : MonoBehaviour
     private int ids, highestScores;
     private string nicks;
     private List<RankingModel> models = new List<RankingModel>();
+    GameObject[] temporaryObject;
 
     private void ConnectionDB()
     {
@@ -78,25 +79,40 @@ public class ScoreManager : MonoBehaviour
     public void ShowHighScores()
     {
         GetHighestScores();
-        for(int i = 0; i < models.Count; i++)
+        for(int i = 0; i < maximumEntriesShown; i++)
         {
-            if(i < models.Count - 1)
+            if(i < models.Count)
             {
-                GameObject temporaryObject = Instantiate(entriePrefab);
+                temporaryObject[i] = Instantiate(entriePrefab);
 
                 RankingModel temporaryModel = models[i];
 
-                temporaryObject.GetComponent<ModelScript>().SetEntries(("#" + ((i + 1).ToString())) ,temporaryModel.nick, temporaryModel.highestScore.ToString());
+                temporaryObject[i].GetComponent<ModelScript>().SetEntries(("#" + ((i + 1).ToString())) ,temporaryModel.nick, temporaryModel.highestScore.ToString());
 
-                temporaryObject.transform.SetParent(entrieParent);
-                temporaryObject.transform.localScale = new Vector3(1, 1, 1);
+                temporaryObject[i].transform.SetParent(entrieParent);
+                temporaryObject[i].transform.localScale = new Vector3(1, 1, 1);
             }
         }
+    }
+
+    public void CleanRanking()
+    {
+        for (int i = 0; i < temporaryObject.Length - 1; i++)
+        {
+            Destroy(temporaryObject[i]);
+        }
+    }
+
+    public void RefreshRanking()
+    {
+        CleanRanking();
+        ShowHighScores();
     }
 
     private void OnEnable()
     {
         ConnectionDB();
+        temporaryObject = new GameObject[maximumEntriesShown];
     }
 
     private void OnDisable()

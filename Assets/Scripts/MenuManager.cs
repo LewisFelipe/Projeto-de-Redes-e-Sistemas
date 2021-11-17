@@ -19,7 +19,7 @@ public class MenuManager : MonoBehaviour
     Resolution[] resolutions;
     LTRect optionsPanelRectTransform = new LTRect();
 
-    private void StartResolutions()
+    public void StartResolutions()
     {
         int currentResolutionIndex = 0;
         resolutions = Screen.resolutions;
@@ -164,6 +164,7 @@ public class MenuManager : MonoBehaviour
     public void RankingButtonExit()
     {
         rankingPanel.transform.position = gameObject.transform.position + new Vector3(4 * gameObject.transform.position.x, 0, 0);
+        FindObjectOfType<ScoreManager>().CleanRanking();
     }
 
     private void Start()

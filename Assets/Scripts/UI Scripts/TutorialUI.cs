@@ -94,6 +94,8 @@ public class TutorialUI : MonoBehaviour
 
     public void BackToMenu()
     {
-        SceneManager.LoadScene("Menu");
+        ScoreManager.score = 0;
+
+        SceneManager.LoadScene(0);
     }
 }

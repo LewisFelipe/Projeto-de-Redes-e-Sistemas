@@ -12,6 +12,7 @@ public class InGameMenu : MenuManager
 
     public void PausedOptionsButton()
     {
+        StartResolutions();
         optionsPanel.transform.position = gameObject.transform.position;
     }
 
