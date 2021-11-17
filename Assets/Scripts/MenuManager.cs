@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
@@ -14,10 +15,14 @@ public class MenuManager : MonoBehaviour
     public Image muteMusic, muteSound;
     public Sprite musicOn, musicOff, soundOn, soundOff;
     public Slider musicSlider, soundSlider;
+    public AudioMixer audioMixer;
     public AudioSource musicEmitter, soundEmitter;
 
     Resolution[] resolutions;
     LTRect optionsPanelRectTransform = new LTRect();
+    string musicVolume = "MusicVolume";
+    string soundVolume = "SFX_Volume";
+    float unMutedSoundVolume;
 
     public void StartResolutions()
     {
@@ -71,9 +76,9 @@ public class MenuManager : MonoBehaviour
         QualitySettings.vSyncCount = Convert.ToInt32(isOn);
     }
 
-    private void ChangeMuteUI(AudioSource source, Image UIButton, Sprite on, Sprite off)
+    private void ChangeMuteUI(AudioSource source, Slider slider, Image UIButton, Sprite on, Sprite off)
     {
-        if(source.mute || source.volume <= 0)
+        if(source.mute || slider.value <= -80)
         {
             UIButton.sprite = off;
         }
@@ -87,28 +92,37 @@ public class MenuManager : MonoBehaviour
     {
         musicEmitter.mute = !musicEmitter.mute;
 
-        ChangeMuteUI(musicEmitter, muteMusic, musicOn, musicOff);
+        ChangeMuteUI(musicEmitter, musicSlider, muteMusic, musicOn, musicOff);
     }
 
     public void MusicSlider()
     {
-        musicEmitter.volume = musicSlider.value;
+        audioMixer.SetFloat(musicVolume, musicSlider.value);
 
-        ChangeMuteUI(musicEmitter, muteMusic, musicOn, musicOff);
+        ChangeMuteUI(musicEmitter, musicSlider, muteMusic, musicOn, musicOff);
     }
 
     public void MuteSound()
     {
         soundEmitter.mute = !soundEmitter.mute;
+        if(soundEmitter.mute)
+        {
+            unMutedSoundVolume = soundSlider.value;
+            audioMixer.SetFloat(soundVolume, -80f);
+        }
+        else
+        {
+            audioMixer.SetFloat(soundVolume, unMutedSoundVolume);
+        }
 
-        ChangeMuteUI(soundEmitter, muteSound, soundOn, soundOff);
+        ChangeMuteUI(soundEmitter, soundSlider, muteSound, soundOn, soundOff);
     }
 
     public void SoundSlider()
     {
-        soundEmitter.volume = soundSlider.value;
+        audioMixer.SetFloat(soundVolume, soundSlider.value);
 
-        ChangeMuteUI(soundEmitter, muteSound, soundOn, soundOff);
+        ChangeMuteUI(soundEmitter, soundSlider, muteSound, soundOn, soundOff);
     }
 
     public void ExitButton()
