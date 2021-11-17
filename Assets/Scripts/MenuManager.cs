@@ -9,7 +9,7 @@ public class MenuManager : MonoBehaviour
 {
     //Ainda falta salvar com player prefs
     public Dropdown resolutionsDropdown;
-    public GameObject optionsPanel, loginPanel;
+    public GameObject optionsPanel, loginPanel, rankingPanel;
     public GameObject[] informations;
     public Image muteMusic, muteSound;
     public Sprite musicOn, musicOff, soundOn, soundOff;
@@ -118,15 +118,17 @@ public class MenuManager : MonoBehaviour
 
     IEnumerator InformationManager()
     {
+        informations[4].transform.position = gameObject.transform.position;
         foreach (GameObject page in informations)
         {
             yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
-            page.SetActive(true);
+            page.transform.position = gameObject.transform.position;
+            yield return null;
             //AudioManager.Singleton.PlaySoundEffect(0);
         }
         foreach (GameObject page in informations)
         {
-            page.SetActive(false);
+            page.transform.position = gameObject.transform.position + new Vector3(-8 * gameObject.transform.position.x, 0, 0);
         }
     }
 
@@ -152,8 +154,24 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    public void RankingButton()
+    {
+        //LeanTween.move(rankingPanel, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), 0.5f);
+        rankingPanel.transform.position = gameObject.transform.position;
+        FindObjectOfType<ScoreManager>().ShowHighScores();
+    }
+
+    public void RankingButtonExit()
+    {
+        rankingPanel.transform.position = gameObject.transform.position + new Vector3(4 * gameObject.transform.position.x, 0, 0);
+    }
+
     private void Start()
     {
         StartResolutions();
+        foreach (GameObject page in informations)
+        {
+            page.transform.position = gameObject.transform.position + new Vector3(-8 * gameObject.transform.position.x, 0, 0);
+        }
     }
 }

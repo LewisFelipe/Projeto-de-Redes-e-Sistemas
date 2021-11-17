@@ -51,8 +51,8 @@ public class EnemyAI : MonoBehaviour
                     anim.SetBool("isWalking", false);
                     anim.SetBool("isAttacking", true);
                     if(anim.GetCurrentAnimatorStateInfo(0).IsTag("EnemyAttack"))
-                    StartCoroutine(DamageCooldown());          
-                }     
+                    StartCoroutine(DamageCooldown());
+                }
             }
         }
         else

@@ -31,7 +31,7 @@ public class Login : MonoBehaviour
     private void InsertDB()
     {
         command = connection.CreateCommand();
-        command.CommandText = "CREATE TABLE IF NOT EXISTS ranking (id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, nick VARCHAR(12), password VARCHAR(16), bestRun FLOAT, highestScore INTEGER);";
+        command.CommandText = "CREATE TABLE IF NOT EXISTS ranking (id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, nick VARCHAR(12), password VARCHAR(16), highestScore INTEGER);";
         command.ExecuteNonQuery();
     }
 
@@ -53,7 +53,7 @@ public class Login : MonoBehaviour
         }
         else
         {
-            command.CommandText = "INSERT INTO ranking (nick, password) VALUES('" + ifNick.text + "', '" + ifPassword.text + "');";
+            command.CommandText = "INSERT INTO ranking (nick, password, highestScore) VALUES('" + ifNick.text + "', '" + ifPassword.text + "', 0);";
             command.ExecuteNonQuery();
         }
     }
@@ -71,6 +71,7 @@ public class Login : MonoBehaviour
             }
             if(ifNick.text.Equals(nick) && ifPassword.text.Equals(password))
             {
+                PlayerPrefs.SetString("NICK", nick);
                 isLogged = true;
                 SceneManager.LoadScene(1);
             }

@@ -50,6 +50,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if(health <= 0)
         {
+            FindObjectOfType<ScoreManager>().ChangeHighestScore();
             deathPanel.SetActive(true);
         }
     }

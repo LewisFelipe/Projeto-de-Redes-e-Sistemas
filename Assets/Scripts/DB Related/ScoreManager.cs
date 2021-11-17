@@ -10,16 +10,16 @@ public class ScoreManager : MonoBehaviour
 {
     const string DB_NAME = "URI=file:SQLiteDB.db";
 
-    public static float runTime = -1;
     public static int score = 0;
     public GameObject entriePrefab;
+    public Transform entrieParent;
+    public int maximumEntriesShown;
 
     private IDbConnection connection;
     private IDbCommand command;
     private IDataReader reader;
-    private float bestRun = -1;
     private int highestScore = 0, playerToDelete;
-    private int ids, highestScores, bestRuns;
+    private int ids, highestScores;
     private string nicks;
     private List<RankingModel> models = new List<RankingModel>();
 
@@ -29,12 +29,12 @@ public class ScoreManager : MonoBehaviour
         command = connection.CreateCommand();
     }
 
-    public void changeHighestScore()
+    public void ChangeHighestScore()
     {
         connection.Open();
         command = connection.CreateCommand();
 
-        command.CommandText = "SELECT highestScore FROM ranking WHERE nick = '" + Login.nick + "';";
+        command.CommandText = "SELECT highestScore FROM ranking WHERE nick ='" + Login.nick + "';";
         reader = command.ExecuteReader();
         while(reader.Read())
         {
@@ -43,27 +43,7 @@ public class ScoreManager : MonoBehaviour
 
         if(score > highestScore)
         {
-            command.CommandText = "UPDATE highestScore INTO ranking WHERE nick = '" + Login.nick + "' VALUE(" + highestScore + ");";
-            command.ExecuteNonQuery();
-        }
-        connection.Close();
-    }
-
-    public void runEnded()
-    {
-        connection.Open();
-        command = connection.CreateCommand();
-
-        command.CommandText = "SELECT bestRun FROM ranking WHERE nick = '" + Login.nick + "';";
-        reader = command.ExecuteReader();
-        while(reader.Read())
-        {
-            bestRun = reader.GetFloat(0);
-        }
-
-        if((runTime > 0) || (runTime < bestRun))
-        {
-            command.CommandText = "UPDATE bestRun INTO ranking WHERE nick = '" + Login.nick + "' VALUE(" + bestRun + ");";
+            command.CommandText = "UPDATE ranking SET highestScore = " + score + " WHERE nick = '" + Login.nick + "';";
             command.ExecuteNonQuery();
         }
         connection.Close();
@@ -75,28 +55,14 @@ public class ScoreManager : MonoBehaviour
         connection.Open();
         command = connection.CreateCommand();
 
-        command.CommandText = "SELECT id, nick, highestScores FROM ranking;";
+        command.CommandText = "SELECT id, nick, highestScore FROM ranking;";
         reader = command.ExecuteReader();
         while(reader.Read())
         {
             models.Add(new RankingModel(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2)));
         }
         connection.Close();
-    }
-
-    private void GetBestRuns()
-    {
-        models.Clear();
-        connection.Open();
-        command = connection.CreateCommand();
-
-        command.CommandText = "SELECT id, nick, bestRuns FROM ranking;";
-        reader = command.ExecuteReader();
-        while(reader.Read())
-        {
-            models.Add(new RankingModel(reader.GetInt32(0), reader.GetString(1), reader.GetFloat(2)));
-        }
-        connection.Close();
+        models.Sort();
     }
 
     private void DeleteFromDB()
@@ -109,15 +75,22 @@ public class ScoreManager : MonoBehaviour
         connection.Close();
     }
 
-    private void ShowHighScores()
+    public void ShowHighScores()
     {
+        GetHighestScores();
         for(int i = 0; i < models.Count; i++)
         {
-            GameObject temporaryObject = Instantiate(entriePrefab);
+            if(i < models.Count - 1)
+            {
+                GameObject temporaryObject = Instantiate(entriePrefab);
 
-            RankingModel temporaryModel = models[i];
+                RankingModel temporaryModel = models[i];
 
-            //temporaryObject.GetComponent<ModelScript>();
+                temporaryObject.GetComponent<ModelScript>().SetEntries(("#" + ((i + 1).ToString())) ,temporaryModel.nick, temporaryModel.highestScore.ToString());
+
+                temporaryObject.transform.SetParent(entrieParent);
+                temporaryObject.transform.localScale = new Vector3(1, 1, 1);
+            }
         }
     }
 
@@ -126,21 +99,8 @@ public class ScoreManager : MonoBehaviour
         ConnectionDB();
     }
 
-    private void OnDisbale()
+    private void OnDisable()
     {
         connection.Dispose();
-    }
-
-    private void Start()
-    {
-        runTime = 0;
-    }
-
-    private void Update()
-    {
-        if(Login.isLogged)
-        {
-            runTime += Time.deltaTime;
-        }
     }
 }

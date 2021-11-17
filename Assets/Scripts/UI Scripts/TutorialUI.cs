@@ -15,7 +15,6 @@ public class TutorialUI : MonoBehaviour
     public Texture2D gameCursor;
 
     private int textNumber;
-    private ScoreManager scoreManager;
     public AudioSource exitSfx, nextSfx, previousSfx;
 
     void Start()
@@ -23,7 +22,6 @@ public class TutorialUI : MonoBehaviour
         tutorialTab.SetActive(true);
         NpcDialogue.isShopping = true;
         Cursor.SetCursor(gameCursor, Vector2.zero, CursorMode.ForceSoftware);
-        scoreManager = FindObjectOfType<ScoreManager>();
     }
 
     void Update()
@@ -84,15 +82,14 @@ public class TutorialUI : MonoBehaviour
     public void OpenTutorial()
     {
         tutorialTab.SetActive(true);
-        NpcDialogue.isShopping = true;        
+        NpcDialogue.isShopping = true;
     }
 
     public void RestartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        scoreManager.changeHighestScore();
-        ScoreManager.runTime = 0;
         ScoreManager.score = 0;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void BackToMenu()
