@@ -16,10 +16,11 @@ public class Login : MonoBehaviour
     public InputField ifNick;
     public InputField ifPassword;
 
+    private Hashing hashing = new Hashing();
     private IDbConnection connection;
     private IDbCommand command;
     private IDataReader reader;
-    private string verifica, password;
+    private string salt = "0", verifica, dbHash, dbSalt;
 
     private void ConnectionDB()
     {
@@ -28,10 +29,17 @@ public class Login : MonoBehaviour
         connection.Open();
     }
 
+    private void CreateSalt()
+    {
+        System.Random random = new System.Random(System.DateTime.Now.Millisecond);
+        int hexRandomDigits = random.Next(4096, 65535);
+        salt = hexRandomDigits.ToString("X");
+    }
+
     private void InsertDB()
     {
         command = connection.CreateCommand();
-        command.CommandText = "CREATE TABLE IF NOT EXISTS ranking (id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, nick VARCHAR(12), password VARCHAR(16), highestScore INTEGER);";
+        command.CommandText = "CREATE TABLE IF NOT EXISTS ranking (id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, nick VARCHAR(12), hash VARCHAR(256), salt VARCHAR(8), highestScore INTEGER);";
         command.ExecuteNonQuery();
     }
 
@@ -53,7 +61,8 @@ public class Login : MonoBehaviour
         }
         else
         {
-            command.CommandText = "INSERT INTO ranking (nick, password, highestScore) VALUES('" + ifNick.text + "', '" + ifPassword.text + "', 0);";
+            CreateSalt();
+            command.CommandText = "INSERT INTO ranking (nick, hash, salt, highestScore) VALUES('" + ifNick.text + "', '" + hashing.GetHash(ifPassword.text + salt) + "', '" + salt + "', 0);";
             command.ExecuteNonQuery();
         }
     }
@@ -62,14 +71,15 @@ public class Login : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(ifNick.text) && !string.IsNullOrEmpty(ifPassword.text))
         {
-            command.CommandText = "SELECT nick, password FROM ranking WHERE nick = '" + ifNick.text + "' AND password = '" + ifPassword.text + "';";
+            command.CommandText = "SELECT nick, hash, salt FROM ranking WHERE nick = '" + ifNick.text + "';";
             reader = command.ExecuteReader();
             while(reader.Read())
             {
                 nick = reader.GetString(0);
-                password = reader.GetString(1);
+                dbHash = reader.GetString(1);
+                dbSalt = reader.GetString(2);
             }
-            if(ifNick.text.Equals(nick) && ifPassword.text.Equals(password))
+            if(ifNick.text.Equals(nick) && hashing.GetHash(ifPassword.text + dbSalt).Equals(dbHash))
             {
                 PlayerPrefs.SetString("NICK", nick);
                 isLogged = true;
